@@ -6,14 +6,14 @@
  * platocrat@tuta.io
  *
  * Date:
- * December 30, 2019
+ * January 14, 2020
  *
  * Version:
  * v0.0.2
  *
- * References:
- * 1) Compound's, "Compound Sai (cSAI)", contract:
- * https://etherscan.io/address/0xf5dce57282a584d2746faf1593d3121fcac444dc#code
+ * Contract References:
+ * 1) Compound's Comptroller "Unitroller" contract:
+ * https://etherscan.io/address/0x3d9819210a31b4961b30ef54be2aed79b9c9cd3b
  *
  * 2) dYdX's, "SoloMargin", contract:
  * https://etherscan.io/address/0x1e0447b19bb6ecfdae1e4ae1694b0c3659614e4e#code
@@ -21,7 +21,38 @@
  * 3) ENS's, "BaseRegistrarImplementation", contract:
  * https://etherscan.io/address/0xfac7bea255a6990f749363002136af6556b31e04#code
  *
- * Description:
+ * 
+ * Cryptography References:
+ * 1) Verifiable Delay Functions (VDFs):
+ * 
+ * References for VDFs:
+ *   Proofs-of-Delay and randomness beacons in Ethereum
+ * http://www.jbonneau.com/doc/BGB17-IEEESB-proof_of_delay_ethereum.pdf
+ * 
+ *   Verifiable Delay Functions
+ * https://eprint.iacr.org/2018/601.pdf
+ * 
+ *   The Chia Network Blockchain
+ * https://www.chia.net/assets/ChiaGreenPaper.pdf
+ * 
+ *    1.a) Usefulness?
+ * Useful for preventing network-manipulation by miners
+ * 
+ * 
+ * 2) Verifiable Random Functions (VRFs): 
+ * 
+ * References for VRFs:
+ *   Wikipedia page for VRFs
+ * https://en.wikipedia.org/wiki/Verifiable_random_function
+ * 
+ *    b) Usefulness?
+ * 
+ * Useful for providing 1:1 mapping of low entropy inputs (e.g. names, email,
+ * addresses, phone numbers) to some random values which can be committed to
+ * in advance, e.g. through a itmestamping service such as a transparency log.
+ * 
+ * 
+ * Contract Description:
  * This application simulates a supply chain.
  * A *Manager* is instantiated who operates procurement of supplies
  * (via mangaging inventories, purchase orders, deliveries, ), MORE TEXT
