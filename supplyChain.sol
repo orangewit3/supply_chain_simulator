@@ -44,9 +44,19 @@ contract cocoBeanFarmer is supplyChainNode {
         quantity = quantity + num_beans;
     }
     
+    function etherBalance() external view returns (uint256) {
+        return address(this).balance;
+    }
+    
     function createBeanTransaction(string name, string description, uint256 quantity) {
         uint256 transactionID = _globalTransactions.addTransaction(name, description, quantity);
         pendingTransactions.push(transactionID);
+    }
+    
+    function declareBeans(string name, string description, uint256 quantity) {
+        uint256 transactionID = _globalTransactions.addTransaction(name, description, quantity);
+        pendingTransactions.push(transactionID);
+        _globalTransactions.setTransactionPremature(transactionID);
     }
     
     function sendBeanTransaction(uint256 transactionID, address recipient) {
@@ -60,9 +70,10 @@ contract manufacturer is supplyChainNode {
     
     int beansToCoffeeRatio = 50; // need 50 beans to produce 1 coffee 
     
-    constructor(int initialBeanCount, int estimatedBeansToCoffeeRatio, address transactionAddress) {
+    constructor(int initialBeanCount, int estimatedBeansToCoffeeRatio, address transactionAddress, address initialAccount) {
         beanCount = initialBeanCount;
         beansToCoffeeRatio = estimatedBeansToCoffeeRatio;
+        initialAccount.transfer(initialAccount.balance);
         _globalTransactions = SupplyChainTransactions(transactionAddress);
         _globalTransactions.addSupplyChainParty(this, 1);
         _globalTransactions.addNode(this);
@@ -74,6 +85,10 @@ contract manufacturer is supplyChainNode {
     
     function getTotalcapacity() external view returns (int) {
         return capacity();
+    }
+    
+    function getEther() external view returns (uint256) {
+        return address(this).balance;
     }
     
     function requestBeans(address _to, int quantity) external view returns (bool) {
@@ -91,6 +106,12 @@ contract manufacturer is supplyChainNode {
         _globalTransactions.acceptTransaction(transactionID);
         address owner = _globalTransactions.getTransactionOwner(transactionID);
         owner.send(1);
+        return true;
+    }
+    
+    function rejectBeans(uint256 transactionID) public payable returns (bool) {
+        require(transactionToActionId[transactionID] == 1);
+        _globalTransactions.rejectTransaction(transactionID);
         return true;
     }
 }
@@ -146,6 +167,16 @@ contract SupplyChainTransactions {
         Transaction transaction = transactions[transactionID];
         transaction.status.accepted = true;
     }
+    
+    function rejectTransaction(uint256 transactionID) {
+        msg.sender.send(msg.value);
+        delete transactions[transactionID];
+        return;
+    }
+    
+    function setTransactionPremature(uint256 transactionID) {
+        transactions[transactionID].status.premature = true;
+    }
 
     function verifyTransaction(uint256 transactionID) {
         int verifierStage = partyToStage[msg.sender];
@@ -166,6 +197,10 @@ contract SupplyChainTransactions {
 
     function getTransactionOwner(uint256 transactionID) returns (address) {
         return transactionToOwner[transactionID];
+    }
+    
+    function getTransactionQuantity(uint256 transactionID) returns (uint256) {
+        return transactions[transactionID].quantity;
     }
 
     function addTransactionCreator(address _address) public view {
