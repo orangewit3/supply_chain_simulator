@@ -1,5 +1,5 @@
 pragma solidity ^0.4.20;
-
+// a comment
 contract supplyChainNode {
     
     uint256[] pendingTransactions;
