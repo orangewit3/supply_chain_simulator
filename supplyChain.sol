@@ -1,5 +1,5 @@
 pragma solidity ^0.4.20;
-// a comment
+
 contract supplyChainNode {
     
     uint256[] pendingTransactions;
@@ -44,9 +44,19 @@ contract cocoBeanFarmer is supplyChainNode {
         quantity = quantity + num_beans;
     }
     
-    function createBeanTransaction(string name, string description, uint256 quantity) {
-        uint256 transactionID = _globalTransactions.addTransaction(name, description, quantity);
+    function etherBalance() external view returns (uint256) {
+        return address(this).balance;
+    }
+    
+    function createBeanTransaction(string name, string description, uint256 quantityToSend) external view returns (bool) {
+        if (int(quantityToSend) >= quantity) {
+            return false;
+        }
+        uint256 transactionID = _globalTransactions.addTransaction(name, description, quantityToSend);
         pendingTransactions.push(transactionID);
+        _globalTransactions.setTransactionPremature(transactionID);
+        quantity -= int(quantityToSend);
+        return true;
     }
     
     function sendBeanTransaction(uint256 transactionID, address recipient) {
@@ -60,9 +70,10 @@ contract manufacturer is supplyChainNode {
     
     int beansToCoffeeRatio = 50; // need 50 beans to produce 1 coffee 
     
-    constructor(int initialBeanCount, int estimatedBeansToCoffeeRatio, address transactionAddress) {
+    constructor(int initialBeanCount, int estimatedBeansToCoffeeRatio, address transactionAddress, address initialAccount) {
         beanCount = initialBeanCount;
         beansToCoffeeRatio = estimatedBeansToCoffeeRatio;
+        initialAccount.transfer(initialAccount.balance);
         _globalTransactions = SupplyChainTransactions(transactionAddress);
         _globalTransactions.addSupplyChainParty(this, 1);
         _globalTransactions.addNode(this);
@@ -72,8 +83,12 @@ contract manufacturer is supplyChainNode {
         return int(beanCount/beansToCoffeeRatio);
     }
     
-    function getTotalcapacity() external view returns (int) {
+    function getTotalCapacity() external view returns (int) {
         return capacity();
+    }
+    
+    function getEther() external view returns (uint256) {
+        return address(this).balance;
     }
     
     function requestBeans(address _to, int quantity) external view returns (bool) {
@@ -93,19 +108,28 @@ contract manufacturer is supplyChainNode {
         owner.send(1);
         return true;
     }
+    
+    function rejectBeans(uint256 transactionID, string description) public payable returns (bool) {
+        require(transactionToActionId[transactionID] == 1);
+        _globalTransactions.rejectTransaction(transactionID, description);
+        return true;
+    }
 }
-
+// 0x2ead528C8E6790fF63EffEE8c56fC2BD02166CB9
+// give factory $$
 contract SupplyChainTransactions {
 
     struct Status {
         bool accepted; // the requesting party is in compliance with transaction attributes
         bool verified; // the verifiable party has verified the product
-        bool premature; // the responsibly party has declared the existence of the product
+        bool premature; // the responsible party has declared the existence of the product
+        bool rejected; // was rejected by manufacturer
     }
     
     struct Transaction {
         string name;
         string description;
+        string rejectedMsg;
         uint256 quantity;
         Status status;
         address currentOwner;
@@ -124,6 +148,7 @@ contract SupplyChainTransactions {
     function addTransaction(string name, string description, uint256 quantity) external returns (uint256 transactionID) {
         Status memory status = Status({
             accepted: false,
+            rejected: false,
             verified: false,
             premature: true
         });
@@ -135,6 +160,7 @@ contract SupplyChainTransactions {
             description: description,
             quantity: quantity,
             status: status,
+            rejectedMsg: "",
             currentOwner: msg.sender,
             recipient: msg.sender
         });
@@ -145,6 +171,15 @@ contract SupplyChainTransactions {
     function acceptTransaction(uint256 transactionID) {
         Transaction transaction = transactions[transactionID];
         transaction.status.accepted = true;
+    }
+    
+    function rejectTransaction(uint256 transactionID, string description) {
+        transactions[transactionID].status.rejected = true;
+        transactions[transactionID].rejectedMsg = description;
+    }
+    
+    function setTransactionPremature(uint256 transactionID) {
+        transactions[transactionID].status.premature = true;
     }
 
     function verifyTransaction(uint256 transactionID) {
@@ -166,6 +201,10 @@ contract SupplyChainTransactions {
 
     function getTransactionOwner(uint256 transactionID) returns (address) {
         return transactionToOwner[transactionID];
+    }
+    
+    function getTransactionQuantity(uint256 transactionID) returns (uint256) {
+        return transactions[transactionID].quantity;
     }
 
     function addTransactionCreator(address _address) public view {
