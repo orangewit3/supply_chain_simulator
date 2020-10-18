@@ -21,7 +21,6 @@ contract supplyChainNode {
     
 }
 
-
 contract cocoBeanFarmer is supplyChainNode {
 
     int quantity = 0; // total beans this farmer has 
@@ -40,23 +39,44 @@ contract cocoBeanFarmer is supplyChainNode {
         return quantity;
     }
 
-    function claimBeans(int num_beans) external {
+    function claimBeans(int num_beans) {
         quantity = quantity + num_beans;
     }
     
-    function etherBalance() external view returns (uint256) {
+    function () external payable {}
+    
+    function etherBalance() public view returns (uint256) {
         return address(this).balance;
     }
     
-    function createBeanTransaction(string name, string description, uint256 quantityToSend) external view returns (bool) {
+    function createBeanTransaction(string name, string description, uint256 quantityToSend) external returns (bool) {
         if (int(quantityToSend) >= quantity) {
             return false;
         }
         uint256 transactionID = _globalTransactions.addTransaction(name, description, quantityToSend);
         pendingTransactions.push(transactionID);
         _globalTransactions.setTransactionPremature(transactionID);
-        quantity -= int(quantityToSend);
+        quantity = quantity - int(quantityToSend);
         return true;
+    }
+    
+    function isTransactionAccepted(uint256 transactionID) returns (bool) {
+        return _globalTransactions.isTransactionAccepted(transactionID);
+    }
+    
+    function isTransactionRejected(uint256 transactionID) returns (bool) {
+        return _globalTransactions.isTransactionRejected(transactionID);
+    }
+    
+    function getTransactionRejectedMsg(uint256 transactionID) returns (string) {
+        require(_globalTransactions.isTransactionRejected(transactionID));
+        return _globalTransactions.getTransactionRejectedMsg(transactionID);
+    }
+    
+    function reclaimRejectedBeans(uint256 transactionID) { 
+        // separate method in case the farmer no longer wants the beans
+        require(_globalTransactions.isTransactionRejected(transactionID));
+        quantity = quantity + int256(_globalTransactions.getTransactionQuantity(transactionID));
     }
     
     function sendBeanTransaction(uint256 transactionID, address recipient) {
@@ -68,15 +88,22 @@ contract manufacturer is supplyChainNode {
     int beanCount = 0; // num_beans this manufacturer has 
     SupplyChainTransactions private _globalTransactions;
     
+    int beanValueInWei = 1;      // a bean is worth this many ether
     int beansToCoffeeRatio = 50; // need 50 beans to produce 1 coffee 
     
-    constructor(int initialBeanCount, int estimatedBeansToCoffeeRatio, address transactionAddress, address initialAccount) {
+    constructor(int initialBeanCount, int estimatedBeansToCoffeeRatio, int estimatedBeanValueInWei, address transactionAddress) {
         beanCount = initialBeanCount;
         beansToCoffeeRatio = estimatedBeansToCoffeeRatio;
-        initialAccount.transfer(initialAccount.balance);
+        beanValueInWei = estimatedBeanValueInWei;
         _globalTransactions = SupplyChainTransactions(transactionAddress);
         _globalTransactions.addSupplyChainParty(this, 1);
         _globalTransactions.addNode(this);
+    }
+    
+    function () external payable {}
+    
+    function getBalanceEther() public view returns (uint256) {
+        return address(this).balance;
     }
     
     function capacity() internal returns (int) {
@@ -85,10 +112,6 @@ contract manufacturer is supplyChainNode {
     
     function getTotalCapacity() external view returns (int) {
         return capacity();
-    }
-    
-    function getEther() external view returns (uint256) {
-        return address(this).balance;
     }
     
     function requestBeans(address _to, int quantity) external view returns (bool) {
@@ -102,21 +125,34 @@ contract manufacturer is supplyChainNode {
     }
     
     function acceptBeans(uint256 transactionID) public payable returns (bool) { 
-        require(transactionToActionId[transactionID] == 0);
+        // require(transactionToActionId[transactionID] == 0);
+        
+        int beanQuantity = int(_globalTransactions.getTransactionQuantity(transactionID));
+        uint256 saleValueInWei = uint256(beanQuantity * beanValueInWei);
+        
+        if (address(this).balance < saleValueInWei) { // doesnt enough etherBalance
+            _globalTransactions.rejectTransaction(transactionID, "Not enough beans");
+            return false;
+        }
+        
         _globalTransactions.acceptTransaction(transactionID);
-        address owner = _globalTransactions.getTransactionOwner(transactionID);
-        owner.send(1);
+        // address owner = _globalTransactions.getTransactionOwner(transactionID);
+        address(_globalTransactions.getTransactionOwner(transactionID)).transfer(saleValueInWei);
         return true;
     }
     
     function rejectBeans(uint256 transactionID, string description) public payable returns (bool) {
-        require(transactionToActionId[transactionID] == 1);
+        // require(transactionToActionId[transactionID] == 1);
         _globalTransactions.rejectTransaction(transactionID, description);
+        address owner = _globalTransactions.getTransactionOwner(transactionID);
+        cocoBeanFarmer farmer = cocoBeanFarmer(owner);
+        // farmer.claimBeans(int256(_globalTransactions.getTransactionQuantity(transactionID)));
+        // cocoBeanFarmer(owner).claimBeans(int256(_globalTransactions.getTransactionQuantity(transactionID)));
         return true;
     }
 }
-// 0x2ead528C8E6790fF63EffEE8c56fC2BD02166CB9
-// give factory $$
+
+
 contract SupplyChainTransactions {
 
     struct Status {
@@ -164,7 +200,10 @@ contract SupplyChainTransactions {
             currentOwner: msg.sender,
             recipient: msg.sender
         });
+        
+        transactionToOwner[transactionID] = msg.sender;
 
+        // log0(bytes32(transactions.length));
         transactionID = transactions.push(transaction) - 1;
     }
     
@@ -221,6 +260,14 @@ contract SupplyChainTransactions {
 
     function isTransactionAccepted(uint256 transactionID) returns (bool) {
         return transactions[transactionID].status.accepted;
+    }
+    
+    function isTransactionRejected(uint256 transactionID) returns (bool) {
+        return transactions[transactionID].status.rejected;
+    }
+    
+    function getTransactionRejectedMsg(uint256 transactionID) returns (string) {
+        return transactions[transactionID].rejectedMsg;
     }
     
     function getTransactionName(uint256 transactionID) returns (string) {
