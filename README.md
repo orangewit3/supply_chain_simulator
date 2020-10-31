@@ -1,7 +1,7 @@
 # supply_chain_simulator
 Supply chain simulator for Gies Disruption Lab at University of Illinois at Urbana-Champaign.
 
-## Truffle (`truffle`) and Ganache CLI (`ganache-cli)
+## Truffle and Ganache
 We'll be using the popular `truffle` library, an extensive smart contract testing and development framework.
 
 More importantly, we'll use Truffle to compile our `.sol` contracts, then use the compiled ABIs for our frontend.
@@ -29,9 +29,9 @@ Ganache is another tool of TruffleSuite that simulates the Ethereum blockchain f
 
 However, we'll be making modest use of its features, primarily, for interfacing with it's web3 provider tool.
 
-To make use of `ganache-cli`, we must also install it globally:
+Also, make sure to install the ganache-cli globally:
 ```bash
 npm install -g ganache-cli
 ```
 
-> Now you're ready to move on to the developing the UI in `supplychain-sim-interface`.
+##### Now you're ready to move on to the developing the UI in `supplychain-sim-interface`.

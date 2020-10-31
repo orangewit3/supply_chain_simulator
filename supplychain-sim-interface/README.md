@@ -1,35 +1,17 @@
 # UI for supply chain simulator
-The front-end interface for the supply chain simulator, built using Next.js (which comes packaged with React.js and Node.js for API routes (always under `pages/api/`))
-
-**Note:**
-> This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-First, run the development server:
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Learn More
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The front-end interface for the supply chain simulator, built using Next.js (which comes packaged with React.js and Node.js)
 
 ## To-Do's
 > _Put all to-do's here_. We will use this to manage tasks per feature, bug,, et cetera.
 
-### Assigned
-> Tasks assigned to you
-
 1. Truffle now comes packaged with pre-packaged with [Mocha](https://mochajs.org/) and [Chai](http://chaijs.com/), a popular combo of testing and development libraries for JS. 
 
-To run tests using `truffle`, you'll run:
+**Before running a test with `truffle test`**:
+* Make sure that the contracts are compiled. You compile contracts by running `truffle compile` at the _root_ directory.
+* Make sure that you are either in the right directory to run the `truffle test` command, or are using the right path to the test file. 
+
+
+**To run tests using `truffle`, you'll run**:
 ```bash
 truffle test ./path/to/file
 ```
@@ -38,7 +20,7 @@ Using the repo I gave you as an example, try to make some tests for the `cocoaBe
 
 The proper import command for Ganache is already in the `cocoaBeanFarmer.test.js` file for you.
 
-Lastly, for quick reference, here is the previous repo's test `Campaign.test.js` file (note how the use of the compiled JSON ABIs).
+Lastly, for quick reference, here is the previous repo's test `Campaign.test.js` file (note how the use of the compiled JSON ABIs):
 ```js
 // Create one test file for both contracts
 const assert = require('assert');
@@ -233,12 +215,12 @@ describe('Campaigns', () => {
 });
 ```
 
+
+Just focus on writing tests for the `cocoaBeanFarmer` contract, for now.
+
+
 >Let me know if you guys have any questions.
 
 2. Do the same as 1), but now for the remaining 3 contract test files.
 
 >Let me know if you guys have any questions.
-
-
-### Other
-> All other tasks
