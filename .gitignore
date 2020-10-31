@@ -1,0 +1,11 @@
+# git 
+.git
+
+# node
+node_modules
+
+# DS_Store
+.DS_Store
+
+# local variables
+.env.local

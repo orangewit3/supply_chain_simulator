@@ -1,0 +1,24 @@
+{
+  "name": "supply_chain_simulator",
+  "version": "0.1.0",
+  "description": "Supply chain simulator for Gies Disruption Lab at University of Illinois at Urbana-Champaign.",
+  "main": "index.js",
+  "dependencies": {
+    "solc": "^0.4.26",
+    "truffle": "^5.1.50"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orangewit3/supply_chain_simulator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/orangewit3/supply_chain_simulator/issues"
+  },
+  "homepage": "https://github.com/orangewit3/supply_chain_simulator#readme"
+}
