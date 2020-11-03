@@ -21,6 +21,87 @@ contract supplyChainNode {
     
 }
 
+contract freightForwarder {
+    /*
+       manages the movement of transactions between two nodes in the supply chain network
+       main methods: can refund if any transaction has failed, specifics on payments defined by config contract [** to be constructed]
+    */
+    
+    /*
+        constants
+    */
+    int maxValuePerShip = 10;
+    
+    /*
+        this should be retrieved by the config API / contract
+    */
+    int riskDistribution = 0;
+    
+    /*
+        datastructures
+    */
+    struct Trip {
+        string name;
+        int status;
+        int transactionID;
+        address sender; 
+        address receiver;
+    }
+    
+
+    constructor(int maxValuePerShip) {
+        maxValuePerShip = maxValuePerShip;
+    }
+    
+    Trip[] trips;
+    
+    /*
+        external functions
+        Simlar to an API, other contracts (99% transaction contract) will update and take information from this contract
+    */
+    
+    function addTrip(string name, int transactionID, address sender, address receiver) public view returns (uint256) {
+        /*
+            update array of trips or any other datastructres;
+        */
+        return 0;
+    }
+    
+    function checkTripStatus(int tripID) public view returns (string) {
+        /*
+            use datastructure to lookup trip status quickly
+        */
+        return 'N/A';
+    }
+    
+    function updateTripStatus(int tripID, int status) public view returns (bool) {
+        /*
+            use datastructures to update the state of tripID denoting that the ship has failed to deliver the products
+            status = ENUM {0: in_progress, 1: failed}
+            someone updates with status = 1 failed, call internal method to make necessary actions or updates
+        */
+        return false;
+        
+    }
+    
+    /*
+        internal functions --> the communication of this contract with the supply chain transactions contract
+        similar to updating the global state of transactions and sending information to the network of nodes
+        Sending payments, updating information, sending [events]
+    */
+    
+    function refundTripValue(int tripID) internal view returns(bool) {
+        /*
+        tripID has failed
+        send transactionID value equally accross the sender and the receiver
+        this involves actually sending the ether
+        this method should be **payable**
+        */
+        return false;
+    }
+}
+
+
 contract cocoBeanFarmer is supplyChainNode {
 
     int quantity = 0; // total beans this farmer has 
