@@ -21,6 +21,138 @@ contract supplyChainNode {
     
 }
 
+contract config {
+    /*
+        Defines constants that any two parties in the supply chain need to define transactions
+        Examples: prices, risk distribution ratios, refund policies, etc.
+        Must be agreed upon between two parties to exist
+    */
+}
+
+
+
+contract carrier is supplyChainNode{
+    /*
+       manages the movement of transactions between two nodes in the supply chain network
+       main methods: can refund if any transaction has failed, specifics on payments defined by config contract [** to be constructed]
+    */
+
+    /*
+        constants
+    */
+    int maxCapacityPerTransit = 10;
+
+    /*
+        this should be retrieved by the config API / contract
+    */
+    int riskDistribution = 0;
+
+    /*
+        data structures
+    */
+    SupplyChainTransactions private _globalTransactions;
+
+    struct Transit {
+        string name;
+        uint status;    // 0 is progress and 1 is failed
+        int transactionID;
+        address sender;
+        address receiver;
+    }
+    
+    uint256[] pendingTransactions;
+    /*
+        TODO:
+        populate this pendingtransactions array with the transactions that need to processed
+        In this case transactions that need to be transported from A (farmer) to B (manufacturer) address.
+    */
+
+    constructor(int maxCapacityPerTransit, address transactionAddress) public {
+        maxCapacityPerTransit = maxCapacityPerTransit;
+        _globalTransactions = SupplyChainTransactions(transactionAddress);
+        _globalTransactions.addTransactionCreator(this);
+        _globalTransactions.addSupplyChainParty(this, 0);
+        _globalTransactions.addNode(this);
+    }
+
+    function () external payable {}
+
+    Transit[] transits;
+
+    function addTransit(string name, int transactionID, address sender, address receiver) public returns (uint256) {
+        /*
+            update array of transits or any other datastructres;
+        */
+        Transit memory t = Transit(name, 0, transactionID, sender, receiver); // status initialized to 0 = in progress by default
+        transits.push(t);
+        return 0;
+    }
+
+    function checkTransitStatus(uint256 transitID) public view returns (int) {
+        /*
+            use data structure to lookup transit status quickly
+        */
+        if (transitID < 0 || transitID > transits.length - 1) {
+            return -1;
+        }
+        return int(transits[transitID].status);
+    }
+    
+    function getPendingTransaction() public view returns (int) {
+        /*
+            return the top pending transaction that this carrier neds to processed
+            pendingTransaction[-1]
+        */
+        return 0;
+    }
+
+    function updateTransitStatus(uint256 transitID, uint status) public returns (bool) {
+        /*
+            use data structures to update the state of transitID denoting that the ship has failed to deliver the products
+            status = ENUM {0: in_progress, 1: failed}
+            someone updates with status = 1 failed, call internal method to make necessary actions or updates
+        */
+
+        if (transitID < 0 || transitID > transits.length - 1) {
+            return false;
+        }
+        if (transits[transitID].status == 1) {   
+            return false;
+        }
+        transits[transitID].status = status;
+        if (status == 1) {
+            refundTransitValue(transitID);
+        }
+        return true;
+    }
+
+    function refundTransitValue(uint256 transitID) payable returns(bool) {
+        /*
+        transitID has failed
+        send transactionID value equally accross the sender and the receiver
+        this involves actually sending the ether
+        this method should be **payable**
+        */
+
+        if (transitID < 0 || transitID > transits.length - 1) {
+            return false;
+        }
+        address sender = transits[transitID].sender;
+        address receiver = transits[transitID].receiver;
+        uint256 transactionID = uint256(transits[transitID].transactionID);
+
+        int beanQuantity = int(_globalTransactions.getTransactionQuantity(transactionID));
+        uint256 saleValueInWei = uint256(beanQuantity);
+
+        if (address(this).balance < saleValueInWei) {
+            return false;
+        }
+        sender.transfer(saleValueInWei / 2);
+        receiver.transfer(saleValueInWei / 2);
+        return true;
+    }
+}
+
 contract cocoBeanFarmer is supplyChainNode {
 
     int quantity = 0; // total beans this farmer has 
@@ -87,10 +219,16 @@ contract cocoBeanFarmer is supplyChainNode {
 contract manufacturer is supplyChainNode {
     int beanCount = 0; // num_beans this manufacturer has 
     SupplyChainTransactions private _globalTransactions;
-    
+    uint256[] pendingTransactions;
+    /*
+        TODO
+        add pending transactions array
+        whenever this manufacturer has ownership or must do something with a transaction it should be added to this array
+        ideally this array should include "transactions to accept"
+    */
     int beanValueInWei = 1;      // a bean is worth this many ether
     int beansToCoffeeRatio = 50; // need 50 beans to produce 1 coffee 
-    
+
     constructor(int initialBeanCount, int estimatedBeansToCoffeeRatio, int estimatedBeanValueInWei, address transactionAddress) {
         beanCount = initialBeanCount;
         beansToCoffeeRatio = estimatedBeansToCoffeeRatio;
