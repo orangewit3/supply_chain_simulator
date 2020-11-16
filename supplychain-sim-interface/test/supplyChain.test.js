@@ -9,10 +9,10 @@ const Web3 = require('web3')
 // Making an instance of Web3
 const web3 = new Web3(ganache.provider())
 
-const compiledCocoaBeanFarmer = require('../../build/contracts/cocoBeanFarmer.json')
-const compiledManufacturer = require('../../build/contracts/manufacturer.json')
-const compiledSupplyChainNode = require('../../build/contracts/supplyChainNode.json')
 const compiledSupplyChainTransactions = require('../../build/contracts/SupplyChainTransactions.json')
+const compiledSupplyChainNode = require('../../build/contracts/supplyChainNode.json')
+const compiledManufacturer = require('../../build/contracts/manufacturer.json')
+const compiledCocoaBeanFarmer = require('../../build/contracts/cocoBeanFarmer.json')
 
 let accounts,
   cocoBeanFarmer,
@@ -29,7 +29,7 @@ beforeEach(async () => {
   cocoBeanFarmer = await new web3.eth.Contract(compiledCocoaBeanFarmer.abi)
     .deploy({
       data: compiledCocoaBeanFarmer.bytecode,
-      arguments: [100, supplyChainTransactions.options.address]
+      arguments: [ 100, supplyChainTransactions.options.address ]
     })
     .send({ from: accounts[ 0 ], gas: 1500000, gasPrice: '30000000000' })
 })
