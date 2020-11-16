@@ -8,7 +8,7 @@ if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
   const provider = new Web3.providers.HttpProvider(
     // Recall that 'infura' is solely used as a portal to access the ethereum
     // network
-    'https://ropsten.infura.io/v3/3f4f959699224811bce8d70d6f8ea717'
+    'https://:7cbbc668d5c34e64a984130b21810866ropsten.infura.io/v3/3f4f959699224811bce8d70d6f8ea717'
   )
   web3 = new Web3(provider)
 }

@@ -48,5 +48,8 @@ const deploy = async () => {
 }
 deploy()
 
-// Address of our deployed contract
-// 0x4dFe100802b2A8c7D85EcFa10B03873Aa5370407
+/**
+ * @dev
+ * Address of our deployed contract:
+ * 
+ */
