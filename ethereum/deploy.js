@@ -1,12 +1,12 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider')
 const Web3 = require('web3')
 const compiledSupplyChainTransactions = require('../build/contracts/SupplyChainTransactions.json')
-const compiledSupplyChainNode = require('../build/contracts/supplyChainNode.json')
-const compiledManufacturer = require('../build/contracts/manufacturer.json')
-const compiledCocoaBeanFarmer = require('../build/contracts/cocoBeanFarmer.json')
 
 /**
- * @dev 
+ * @dev
+ * Instantiating Web3 provider.
+ * 
+ * @todo
  * 1) Copy your mnemonic seed phrase from your MetaMask wallet into the 
  * `.env-sample` file. 
  * 2) Make sure to rename `.env-sample` to `.env` so that we're able to import 
@@ -21,7 +21,14 @@ let provider = new HDWalletProvider({
 
 const web3 = new Web3(provider)
 
-// helper function to deploy `compiledSupplyChainTransactions`
+/**
+ * @dev
+ * This is a helper function to deploy `compiledSupplyChainTransactions`. 
+ * 
+ * @todo 
+ * 1) Deploy `compiledSupplyChainTransactions`.
+ * 2) Deploy all other contracts.
+ */
 async function deploy() {
   const accounts = await web3.eth.getAccounts()
 
