@@ -18,7 +18,7 @@ module.exports = {
     development: {
       provider: () =>
         new HDWalletProvider({
-          providerOrUrl: process.env.INFURA_ENDPOINT,
+          providerOrUrl: /** @todo Use the right environment variable here */,
           numberOfAddresses: 1,
           shareNonce: true,
           derivationPath: "m/44'/1'/0'/0/"
@@ -29,7 +29,7 @@ module.exports = {
       // must be a thunk, otherwise truffle commands may hang in CI
       provider: () =>
         new HDWalletProvider({
-          providerOrUrl: process.env.INFURA_ENDPOINT,
+          providerOrUrl: /** @todo Use the right environment variable here */,
           numberOfAddresses: 1,
           shareNonce: true,
           derivationPath: "m/44'/1'/0'/0/"
