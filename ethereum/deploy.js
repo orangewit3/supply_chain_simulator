@@ -1,55 +1,46 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider')
 const Web3 = require('web3')
-const compiledFactory = require('./build/CampaignFactory.json')
+const compiledSupplyChainTransactions = require('../build/contracts/SupplyChainTransactions.json')
+const compiledSupplyChainNode = require('../build/contracts/supplyChainNode.json')
+const compiledManufacturer = require('../build/contracts/manufacturer.json')
+const compiledCocoaBeanFarmer = require('../build/contracts/cocoBeanFarmer.json')
 
 /**
-@dev
-the purpose of HDWalletProvider package is to both connect to some target
-network AND unlock an account for use on that network.
-
-In this case we unlocked an account by using our 12 word mneumonic device,
-just this mneumonic we were able to unlock and generate the public and
-private key and address of our account.
-
-Specified that our provider connect to an infura node
-Anytime we want to connect to a real network, and not one that is just
-hosted locally on our machine, we have to connect to a real node.
-
-You will see a lot of documentation out there that advises you to use modules
-like geth or parity on your local machine to connect to the Ethereum
-network.
-
-However, setting either of those up is a real pain in the ass.
-
-So, wherever possible, it is recommended to ues infura because it is easy
-and straightforward to use and does not require you to host really
-expensive nodes on your local machine.
-*/
+ * @dev 
+ * 1) Copy your mnemonic seed phrase from your MetaMask wallet into the 
+ * `.env-sample` file. 
+ * 2) Make sure to rename `.env-sample` to `.env` so that we're able to import 
+ * the appropriate environment variables
+ */
 let provider = new HDWalletProvider({
-  providerOrUrl: 'http://localhost:8545'
+  // HDWalletProvider documentation (for more info): 
+  // https://github.com/trufflesuite/truffle/tree/develop/packages/hdwallet-provider
+  mnemonic: /** @todo WALLET_MNEMONIC */,
+  providerOrUrl: /** @todo Similar method as above */,
 })
 
-// taking our provider, passing to the 'Web3()' constructor and getting out an
-// instance of web3
 const web3 = new Web3(provider)
 
-// just a little helper function to let us use async/await
-const deploy = async () => {
+// helper function to deploy `compiledSupplyChainTransactions`
+async function deploy() {
   const accounts = await web3.eth.getAccounts()
 
-  console.log('Attempting to deploy from account', accounts[ 0 ])
+  console.log('Attempting to deploy from account ' + accounts[ 0 ])
 
-  // Doing JSON parsing but of the 'compiledFactory.interface'
-  const result = await new web3.eth.Contract(JSON.parse(compiledFactory.interface))
-    .deploy({ data: compiledFactory.bytecode })
+  const txn = await new web3.eth.Contract(compiledSupplyChainTransactions.abi)
+    .deploy({ data: compiledSupplyChainTransactions.bytecode })
+    // Figure out what gas amount you need (easy)
+    // You can use https://ethgasstation.info/calculatorTxV.php as a reference
     .send({ gas: '1000000', from: accounts[ 0 ] })
 
-  console.log('Contract deployed to', result.options.address)
+  console.log('Contract deployed to', txn.options.address)
 }
 deploy()
 
 /**
  * @dev
- * Address of our deployed contract:
- * 
+ * Copy and paste the address of our deployed contract below:
+ * <DEPLOYED_CONTRACT>
+ *
+ * We will use this contract address later in to test our app.
  */

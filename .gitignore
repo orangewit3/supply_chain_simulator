@@ -1,6 +1,3 @@
-# JB
-.idea
-
 # git
 .git
 
@@ -10,5 +7,13 @@ node_modules
 # DS_Store
 .DS_Store
 
-# local variables
+# environment variables
+.env
 .env.local
+
+##### IDE stuff
+# JB
+.idea
+
+# vscode
+.vscode

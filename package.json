@@ -4,6 +4,8 @@
   "description": "Supply chain simulator for Gies Disruption Lab at University of Illinois at Urbana-Champaign.",
   "main": "index.js",
   "dependencies": {
+    "@truffle/hdwallet-provider": "^1.2.0",
+    "dotenv": "^8.2.0",
     "ganache-core": "^2.13.1",
     "solc": "^0.4.26",
     "truffle": "^5.1.50",

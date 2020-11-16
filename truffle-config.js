@@ -16,15 +16,20 @@ module.exports = {
   },
   networks: {
     development: {
-      host: "localhost",
-      port: 8545,
-      network_id: "*" // Match any network id
+      provider: () =>
+        new HDWalletProvider({
+          providerOrUrl: process.env.INFURA_ENDPOINT,
+          numberOfAddresses: 1,
+          shareNonce: true,
+          derivationPath: "m/44'/1'/0'/0/"
+        }),
     },
-    ropsten: {
+    /** @dev We may not end up using this */
+    rinkeby: {
       // must be a thunk, otherwise truffle commands may hang in CI
       provider: () =>
         new HDWalletProvider({
-          providerOrUrl: "https://:7cbbc668d5c34e64a984130b21810866ropsten.infura.io/v3/3f4f959699224811bce8d70d6f8ea717",
+          providerOrUrl: process.env.INFURA_ENDPOINT,
           numberOfAddresses: 1,
           shareNonce: true,
           derivationPath: "m/44'/1'/0'/0/"
