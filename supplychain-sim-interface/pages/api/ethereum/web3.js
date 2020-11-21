@@ -6,7 +6,7 @@ if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
   web3 = new Web3(window.web3.currentProvider)
 } else {
   const provider = new Web3.providers.HttpProvider(
-    /** @todo Import the correct environment variable here */
+    process.env.INFURA_ENDPOINT,
   )
   web3 = new Web3(provider)
 }
