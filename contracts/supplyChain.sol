@@ -109,7 +109,7 @@ contract carrier is supplyChainNode{
     function updateTransitStatus(uint256 transitID, uint status) public returns (bool) {
         /*
             use data structures to update the state of transitID denoting that the ship has failed to deliver the products
-            status = ENUM {0: in_progress, 1: failed}
+            status = ENUM {0: in_progress, 1: failed, 2: completed}
             someone updates with status = 1 failed, call internal method to make necessary actions or updates
         */
 
@@ -120,9 +120,13 @@ contract carrier is supplyChainNode{
             return false;
         }
         transits[transitID].status = status;
+        
         if (status == 1) {
             refundTransitValue(transitID);
         }
+        else if (status == 2) {  // if completed, update owner 
+            _globalTransactions.updateTransactionOwner(transits[transitID].receiver, uint256(transits[transitID].transactionID));
+        }    
         return true;
     }
 
@@ -239,7 +243,9 @@ contract manufacturer is supplyChainNode {
     }
     
     function () external payable {}
-    
+    function getArray() public view returns (uint256[] a) {
+        return pendingTransactions;
+    }
     function getBalanceEther() public view returns (uint256) {
         return address(this).balance;
     }
@@ -250,6 +256,15 @@ contract manufacturer is supplyChainNode {
     
     function getTotalCapacity() external view returns (int) {
         return capacity();
+    }
+    
+    function getPendingTransaction() external returns (uint256 transactionID) {
+        return pendingTransactions[pendingTransactions.length - 1];
+    }
+    
+    function addTransaction(uint256 transactionID) external returns (bool) {
+        pendingTransactions.push(transactionID);
+        return true;
     }
     
     function requestBeans(address _to, int quantity) external view returns (bool) {
@@ -353,6 +368,10 @@ contract SupplyChainTransactions {
     function rejectTransaction(uint256 transactionID, string description) {
         transactions[transactionID].status.rejected = true;
         transactions[transactionID].rejectedMsg = description;
+    }
+    
+    function updateTransactionOwner(address manufacturerAddress, uint256 transactionID) {
+        manufacturer(manufacturerAddress).addTransaction(transactionID);
     }
     
     function setTransactionPremature(uint256 transactionID) {
