@@ -130,6 +130,10 @@
   background-color: #80808071;
 }
 
+.form {
+  margin-bottom: 18px !important;
+}
+
 .tooltipImg {
   margin-bottom: 2px;
 }

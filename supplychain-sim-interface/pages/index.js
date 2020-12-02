@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import supplyChainTxns from './api/ethereum/contracts/interfaces/supplyChainTransactions'
-import supplyChainNode from './api/ethereum/contracts/interfaces/supplyChainNode'
-import testData from '../lib/test-data.json'
+import web3 from 'web3'
+import CocoaBeanFarmer from '../lib/ethereum/contract-interfaces/cocoaBeanFarmer'
+import Manufacturer from '../lib/ethereum/contract-interfaces/manufacturer'
+
+import memeData from '../lib/meme-data.json'
 import PropTypes from 'prop-types'
 import {
   Button,
@@ -19,7 +21,6 @@ import {
   Tooltip,
 } from '@material-ui/core'
 import styles from '../styles/Home.module.css'
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(0.5)
   },
 }))
+
 
 // For sortable head
 const headCells = [
@@ -143,11 +145,43 @@ EnhancedTableHead.propTypes = {
 }
 
 
-function Home({ allSupplyChainTxns }) {
+async function useCreateBeanTxn(event) {
+  event.preventDefault()
+
+  const [ beanTxn, setbeanTxn ] = useState([])
+
+  useEffect(() => {
+    /** @dev Add state to create a new bean transactions */
+    let beanTxnArgs = {
+      _name,
+      _description,
+      _quantityToSend
+    }
+
+    setbeanTxn(beanTxnArgs)
+  }, [])
+
+  return beanTxn
+}
+
+
+// onCreateBeanTxn = async event => {
+//   event.preventDefault()
+
+//   const cocoaBeanFarmer = CocoaBeanFarmer.options.address
+
+//   const
+// }
+
+
+
+function Home({ beanTxnEvents }) {
   const [ order, setOrder ] = useState('asc')
   const [ orderBy, setOrderBy ] = useState('id')
   const [ open, setOpen ] = useState(false)
+  // CSS for Material-UI
   const classes = useStyles()
+  // To make txn data easier to manage in table format
   const rows = []
 
   const handleRequestSort = (event, property) => {
@@ -164,17 +198,23 @@ function Home({ allSupplyChainTxns }) {
     setOpen(true)
   }
 
+  let beanTxnState = {
+    name: "",
+    description: "",
+    quantityToSend: 0
+  }
 
-  allSupplyChainTxns.map((txn, index) => {
-    rows.push(createData(
-      txn.id,
-      txn.description,
-      txn.amount,
-      txn.isCredit,
-      txn.date,
-      txn.imageUrl
-    ))
-  })
+
+  // allSupplyChainTxns.map((txn, index) => {
+  //   rows.push(createData(
+  //     txn.id,
+  //     txn.description,
+  //     txn.amount,
+  //     txn.isCredit,
+  //     txn.date,
+  //     txn.imageUrl
+  //   ))
+  // })
 
 
   return (
@@ -193,6 +233,18 @@ function Home({ allSupplyChainTxns }) {
         <p className={ styles.description }>
           Start by creating adding a transaction.
         </p>
+
+        <div>
+          {/* <Form on>
+            <Grid item>
+              <FormControl>
+                <RedditTextField>
+
+                </RedditTextField>
+              </FormControl>
+            </Grid>
+          </Form> */}
+        </div>
 
         <div className={ styles.grid }>
 
@@ -331,11 +383,21 @@ Home.getInitialProps = (ctx) => {
    * @todo
    * Uncomment once the function works.
    */
-  // const allSupplyChainTxns = await supplyChainTxns.methods.getAllTransactions.call()
+  const addresses = await web3.eth.getAccounts()
+  const beanTxnEvents = CocoaBeanFarmer.methods
+    .createBeanTransaction()
+    .send({
+      from: addresses[ 0 ]
+    })
+  // const beanTxnEvents = CocoaBeanFarmer.events.beanTxn({
+  //   fromBlock: 0
+  // }).on('bean transaction data', event => {
+  //   return event
+  // })
 
-  const allSupplyChainTxns = testData.transactions
+  // const allSupplyChainTxns = memeData.transactions
 
-  return { allSupplyChainTxns }
+  return { beanTxnEvents }
 }
 
 export default Home
