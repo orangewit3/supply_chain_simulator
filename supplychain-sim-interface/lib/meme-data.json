@@ -1,0 +1,212 @@
+{
+  "transactions": [
+    {
+      "id": 0,
+      "date": "2020-11-10T08:10:12.001Z",
+      "amount": 131.78,
+      "isCredit": false,
+      "description": "Karen Depot Co.",
+      "imageUrl": null
+    },
+    {
+      "id": 1,
+      "date": "2020-11-10T10:11:35.031Z",
+      "amount": 11.78,
+      "isCredit": false,
+      "description": "Easy-E-Mart",
+      "imageUrl": null
+    },
+    {
+      "id": 2,
+      "date": "2020-11-10T13:08:12.101Z",
+      "amount": 432.21,
+      "isCredit": false,
+      "description": "Furniture R Us",
+      "imageUrl": null
+    },
+    {
+      "id": 3,
+      "date": "2020-11-11T06:09:10.001Z",
+      "amount": 10.12,
+      "isCredit": false,
+      "description": "Very Personal Communications, L.P.",
+      "imageUrl": null
+    },
+    {
+      "id": 4,
+      "date": "2020-11-11T12:00:00.000Z",
+      "amount": 893.12,
+      "isCredit": true,
+      "description": "Check #2035",
+      "imageUrl": "http://www.quickmeme.com/img/f3/f3b61b558e2ad665d2e4f0a69561b59177c62f8b5eb9b8c22c62275ae710fa9d.jpg"
+    },
+    {
+      "id": 5,
+      "date": "2020-11-11T12:10:12.001Z",
+      "amount": 78.75,
+      "isCredit": false,
+      "description": "Hog's Warts",
+      "imageUrl": null
+    },
+    {
+      "id": 6,
+      "date": "2020-11-11T17:16:07.030Z",
+      "amount": 89.21,
+      "isCredit": false,
+      "description": "Oldman's Land",
+      "imageUrl": null
+    },
+    {
+      "id": 7,
+      "date": "2020-11-12T13:32:23.232Z",
+      "amount": 67.09,
+      "isCredit": false,
+      "description": "Weinermeister",
+      "imageUrl": null
+    },
+    {
+      "id": 8,
+      "date": "2020-11-12T14:10:12.001Z",
+      "amount": 103.11,
+      "isCredit": false,
+      "description": "Hog's Warts",
+      "imageUrl": null
+    },
+    {
+      "id": 9,
+      "date": "2020-11-13T07:02:42.101Z",
+      "amount": 89.21,
+      "isCredit": true,
+      "description": "Oldman's Land",
+      "imageUrl": null
+    },
+    {
+      "id": 10,
+      "date": "2020-11-13T09:54:12.001Z",
+      "amount": 72.87,
+      "isCredit": false,
+      "description": "Karen Depot Co.",
+      "imageUrl": null
+    },
+    {
+      "id": 11,
+      "date": "2020-11-13T12:00:00.000Z",
+      "amount": 378.98,
+      "isCredit": true,
+      "description": "Check #1234",
+      "imageUrl": "http://www.quickmeme.com/img/f3/f3b61b558e2ad665d2e4f0a69561b59177c62f8b5eb9b8c22c62275ae710fa9d.jpg"
+    },
+    {
+      "id": 12,
+      "date": "2020-11-13T18:10:12.001Z",
+      "amount": 91.11,
+      "isCredit": false,
+      "description": "Backyardigan's #32",
+      "imageUrl": null
+    },
+    {
+      "id": 13,
+      "date": "2020-11-14T09:47:56.341Z",
+      "amount": 19.54,
+      "isCredit": false,
+      "description": "Hog's Warts",
+      "imageUrl": null
+    },
+    {
+      "id": 14,
+      "date": "2020-11-14T12:00:00.000Z",
+      "amount": 54.29,
+      "isCredit": true,
+      "description": "Check #1001",
+      "imageUrl": "http://www.quickmeme.com/img/f3/f3b61b558e2ad665d2e4f0a69561b59177c62f8b5eb9b8c22c62275ae710fa9d.jpg"
+    },
+    {
+      "id": 15,
+      "date": "2020-11-14T12:00:00.000Z",
+      "amount": 25.94,
+      "isCredit": true,
+      "description": "Check #6512",
+      "imageUrl": "http://www.quickmeme.com/img/f3/f3b61b558e2ad665d2e4f0a69561b59177c62f8b5eb9b8c22c62275ae710fa9d.jpg"
+    },
+    {
+      "id": 16,
+      "date": "2020-11-14T18:10:12.001Z",
+      "amount": 72.1,
+      "isCredit": false,
+      "description": "Weinermeister",
+      "imageUrl": null
+    },
+    {
+      "id": 17,
+      "date": "2020-11-14T22:38:11.321Z",
+      "amount": 95.02,
+      "isCredit": false,
+      "description": "Half-Whole Foods",
+      "imageUrl": null
+    },
+    {
+      "id": 18,
+      "date": "2020-11-15T01:11:11.111Z",
+      "amount": 14.59,
+      "isCredit": false,
+      "description": "Easy-E-Mart",
+      "imageUrl": null
+    },
+    {
+      "id": 19,
+      "date": "2020-11-16T12:00:00.000Z",
+      "amount": 137.74,
+      "isCredit": true,
+      "description": "Check #1002",
+      "imageUrl": "http://www.quickmeme.com/img/f3/f3b61b558e2ad665d2e4f0a69561b59177c62f8b5eb9b8c22c62275ae710fa9d.jpg"
+    },
+    {
+      "id": 20,
+      "date": "2020-11-17T06:18:14.001Z",
+      "amount": 21.94,
+      "isCredit": false,
+      "description": "Easy-E-Mart",
+      "imageUrl": null
+    },
+    {
+      "id": 21,
+      "date": "2020-11-17T11:08:12.001Z",
+      "amount": 18,
+      "isCredit": false,
+      "description": "Weinermeister",
+      "imageUrl": null
+    },
+    {
+      "id": 22,
+      "date": "2020-11-17T14:13:32.001Z",
+      "amount": 134.14,
+      "isCredit": false,
+      "description": "RadioShack",
+      "imageUrl": null
+    },
+    {
+      "id": 23,
+      "date": "2020-11-18T18:08:14.001Z",
+      "amount": 204.23,
+      "isCredit": false,
+      "description": "AOL",
+      "imageUrl": null
+    },
+    {
+      "id": 24,
+      "date": "2020-11-18T18:56:42.001Z",
+      "amount": 79.95,
+      "isCredit": false,
+      "description": "Very Personal Communications, L.P.",
+      "imageUrl": null
+    },
+    {
+      "id": 25,
+      "date": "2020-11-19T10:08:12.001Z",
+      "amount": 14.23,
+      "isCredit": false,
+      "description": "Easy-E-Mart",
+      "imageUrl": null
+    }
+  ]
+}
