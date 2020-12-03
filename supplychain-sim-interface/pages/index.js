@@ -335,22 +335,6 @@ function Home({ allSupplyChainTxns }) {
               </TableContainer>
             </div>
           </div>
-
-          <a href="https://nextjs.org/docs" className={ styles.card }>
-            <h3>Documentation &rarr</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a
-            href="https://giesgroups.illinois.edu/disruptionlab/affiliated-staff/"
-            className={ styles.card }
-          >
-            <h3>Deploy &rarr</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-
         </div>
       </main>
 
