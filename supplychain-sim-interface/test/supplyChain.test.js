@@ -32,6 +32,13 @@ beforeEach(async () => {
       arguments: [100, supplyChainTransactions.options.address]
     })
     .send({ from: accounts[ 0 ], gas: 1500000, gasPrice: '30000000000' })
+
+  manufacturer = await new web3.eth.Contract(compiledManufacturer.abi)
+    .deploy({
+      data: compiledManufacturer.bytecode,
+      arguments: [1000, 10, 50, supplyChainTransactions.options.address]
+    })
+    .send({ from: accounts[ 0 ], gas: 1500000, gasPrice: '30000000000' })
 })
 
 describe('Supply Chain Transactions Authorized Creators', () => {
@@ -98,12 +105,29 @@ describe('Supply Chain Transactions Transaction Tests', () => {
     assert(rejected)
     const rejectedMsg = await supplyChainTransactions.methods
       .getTransactionRejectedMsg(0).call()
-    assert.strictEqual('your beans suck', rejectedMsg)
+    assert.strictEqual(rejectedMsg, 'your beans suck')
   })
 
   it('can get the transaction name', async () => {
     const name = await supplyChainTransactions.methods.getTransactionName(0).call()
-    assert.strictEqual('example', name)
+    assert.strictEqual(name, 'example')
+  })
+
+  it('can get the transaction value in beans', async () => {
+    const beans = await supplyChainTransactions.methods.getTransactionQuantity(0).call()
+    assert.strictEqual(+beans, 100)
+  })
+
+  it('can transfer ownership and get the current owner', async () => {
+    const oldOwner = await supplyChainTransactions.methods.getTransactionOwner(0).call()
+    assert.strictEqual(accounts[ 1 ], oldOwner)
+
+    await supplyChainTransactions.methods
+      .transferTransactionOwnership(0)
+      .send({ from: accounts[ 2 ], gas: 1500000, gasPrice: '30000000000' })
+
+    const newOwner = await supplyChainTransactions.methods.getTransactionOwner(0).call()
+    assert.strictEqual(accounts[ 2 ], newOwner)
   })
 })
 
@@ -134,5 +158,42 @@ describe('Cocoa Bean Farmer', () => {
 
     const balance = await cocoBeanFarmer.methods.etherBalance().call()
     assert.strictEqual(balance, web3.utils.toWei('1', 'ether'))
+  })
+})
+
+describe('Manufacturer', () => {
+  it('can get current balance', async () => {
+    const balance = await manufacturer.methods.getBalanceEther().call()
+    assert.strictEqual(+balance, 0)
+  })
+
+  it('can accept ether', async () => {
+    const receipt = await web3.eth.sendTransaction({
+      from: accounts[ 1 ],
+      to: manufacturer.options.address,
+      value: web3.utils.toWei('1', 'ether')
+    })
+    assert(receipt.status)
+
+    const balance = await manufacturer.methods.getBalanceEther().call()
+    assert.strictEqual(balance, web3.utils.toWei('1', 'ether'))
+  })
+})
+
+describe('Transactions', () => {
+  it('low-ether manufacturer cannot accept transaction', async () => {
+    // await cocoBeanFarmer.methods.createBeanTransaction('first sale', 'details', 10).send({ from: accounts[ 0 ] })
+  })
+
+  it('low-beans farmer cannot initiate transaction', async () => {
+
+  })
+
+  it('transaction may be rejected by manufacturer with reason', async () => {
+
+  })
+
+  it('accepted transaction rewards both parties', async () => {
+
   })
 })
