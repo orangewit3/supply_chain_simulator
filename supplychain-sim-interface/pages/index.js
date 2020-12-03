@@ -4,7 +4,9 @@ import web3 from 'web3'
 import CocoaBeanFarmer from '../lib/ethereum/contract-interfaces/cocoaBeanFarmer'
 import Manufacturer from '../lib/ethereum/contract-interfaces/manufacturer'
 
+/** @dev Sample data  */
 import memeData from '../lib/meme-data.json'
+
 import PropTypes from 'prop-types'
 import {
   Button,
@@ -165,17 +167,16 @@ async function useCreateBeanTxn(event) {
 }
 
 
-// onCreateBeanTxn = async event => {
-//   event.preventDefault()
-
-//   const cocoaBeanFarmer = CocoaBeanFarmer.options.address
-
-//   const
-// }
-
-
-
-function Home({ beanTxnEvents }) {
+/**
+ * @dev Main functional component:
+ * 
+ * NOTE: 
+ * If using `beanTxnEvents`, replace props as `Home({ beanTxnEvents })`
+ * If using `allSupplyChainTxns`, replace props as `Home({ allSupplyChainTxns })` 
+ * 
+ * @param {props} beanTxnEvents OR allSupplyChainTxns 
+ */
+function Home({ allSupplyChainTxns }) {
   const [ order, setOrder ] = useState('asc')
   const [ orderBy, setOrderBy ] = useState('id')
   const [ open, setOpen ] = useState(false)
@@ -205,16 +206,16 @@ function Home({ beanTxnEvents }) {
   }
 
 
-  // allSupplyChainTxns.map((txn, index) => {
-  //   rows.push(createData(
-  //     txn.id,
-  //     txn.description,
-  //     txn.amount,
-  //     txn.isCredit,
-  //     txn.date,
-  //     txn.imageUrl
-  //   ))
-  // })
+  allSupplyChainTxns.map((txn, index) => {
+    rows.push(createData(
+      txn.id,
+      txn.description,
+      txn.amount,
+      txn.isCredit,
+      txn.date,
+      txn.imageUrl
+    ))
+  })
 
 
   return (
@@ -231,7 +232,7 @@ function Home({ beanTxnEvents }) {
         </h1>
 
         <p className={ styles.description }>
-          Start by creating adding a transaction.
+          Start by creating a transaction.
         </p>
 
         <div>
@@ -383,21 +384,22 @@ Home.getInitialProps = (ctx) => {
    * @todo
    * Uncomment once the function works.
    */
-  const addresses = await web3.eth.getAccounts()
-  const beanTxnEvents = CocoaBeanFarmer.methods
-    .createBeanTransaction()
-    .send({
-      from: addresses[ 0 ]
-    })
+  // const addresses = await web3.eth.getAccounts()
+  // const beanTxnEvents = CocoaBeanFarmer.methods
+  //   .createBeanTransaction()
+  //   .send({
+  //     from: addresses[ 0 ]
+  //   })
   // const beanTxnEvents = CocoaBeanFarmer.events.beanTxn({
   //   fromBlock: 0
   // }).on('bean transaction data', event => {
   //   return event
   // })
 
-  // const allSupplyChainTxns = memeData.transactions
+  const allSupplyChainTxns = memeData.transactions
 
-  return { beanTxnEvents }
+  // return { beanTxnEvents }
+  return { allSupplyChainTxns }
 }
 
 export default Home

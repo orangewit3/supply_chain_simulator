@@ -13,7 +13,7 @@
       "date": "2020-11-10T10:11:35.031Z",
       "amount": 11.78,
       "isCredit": false,
-      "description": "Easy-E-Mart",
+      "description": "Craze-E-Mart",
       "imageUrl": null
     },
     {
@@ -149,7 +149,7 @@
       "date": "2020-11-15T01:11:11.111Z",
       "amount": 14.59,
       "isCredit": false,
-      "description": "Easy-E-Mart",
+      "description": "Craze-E-Mart",
       "imageUrl": null
     },
     {
@@ -165,7 +165,7 @@
       "date": "2020-11-17T06:18:14.001Z",
       "amount": 21.94,
       "isCredit": false,
-      "description": "Easy-E-Mart",
+      "description": "Craze-E-Mart",
       "imageUrl": null
     },
     {
@@ -205,7 +205,7 @@
       "date": "2020-11-19T10:08:12.001Z",
       "amount": 14.23,
       "isCredit": false,
-      "description": "Easy-E-Mart",
+      "description": "Craze-E-Mart",
       "imageUrl": null
     }
   ]

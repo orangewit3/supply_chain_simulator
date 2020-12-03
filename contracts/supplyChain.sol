@@ -3,9 +3,11 @@ pragma solidity ^0.4.26;
 /**
  * @dev
  * 
- * ----------------------------------------------------------------------------
  * Here are dev notes:
+ *
  * ----------------------------------------------------------------------------
+ * @dev Jason is almost done implementing this on front-end - Date: 12/02/2020
+ *
  * MVP process for setting up supply chain and transaction exchanges:
  * 
  * 1. Deploy SupplyChainTransactions contract from address1
@@ -21,8 +23,17 @@ pragma solidity ^0.4.26;
  *   1. Set name = test1
  *   2. Set description = First test to create bean txn
  *   3. Set quantityToSend = 10
+ *
+ * ----------------------------------------------------------------------------
+ * 
+ * 
+ * 6. Accept the newly created transaction by running `acceptTransaction` (of SupplyChainTransactions contract), 
+ *    passing in transactionID of this transaction
+ * 7. 
  * 
  * ----------------------------------------------------------------------------
+ * 
+ * 
  */
 
 contract SupplyChainNode {

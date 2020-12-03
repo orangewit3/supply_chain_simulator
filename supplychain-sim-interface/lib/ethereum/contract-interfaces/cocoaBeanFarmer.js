@@ -1,5 +1,5 @@
-import web3 from '../ethereum/web3'
-import CocoaBeanFarmer from '../../../build/contracts/CocoaBeanFarmer.json'
+import web3 from '../web3'
+import CocoaBeanFarmer from '../../../../build/contracts/CocoaBeanFarmer.json'
 
 
 const instance = () => {
