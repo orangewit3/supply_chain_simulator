@@ -4,6 +4,9 @@ import web3 from 'web3'
 import CocoaBeanFarmer from '../lib/ethereum/contract-interfaces/cocoaBeanFarmer'
 import Manufacturer from '../lib/ethereum/contract-interfaces/manufacturer'
 
+/** @dev Components */
+import CreateBeanTransaction from './components/CocoaBeanFarmer/CreateBeanTransaction'
+
 /** @dev Sample data  */
 import memeData from '../lib/meme-data.json'
 
@@ -70,7 +73,6 @@ function createData(id, description, amount, isCredit, date, imageUrl) {
 }
 
 /**
- * 
  * @dev `descendingComparator()`, `getComparator()`, and `stableSort` are all
  * functions for sorting table columns.
  */
@@ -236,15 +238,7 @@ function Home({ allSupplyChainTxns }) {
         </p>
 
         <div>
-          {/* <Form on>
-            <Grid item>
-              <FormControl>
-                <RedditTextField>
-
-                </RedditTextField>
-              </FormControl>
-            </Grid>
-          </Form> */}
+          <CreateBeanTransaction />
         </div>
 
         <div className={ styles.grid }>

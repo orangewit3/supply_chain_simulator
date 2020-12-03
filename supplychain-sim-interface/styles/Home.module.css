@@ -134,6 +134,20 @@
   margin-bottom: 18px !important;
 }
 
+.formField {
+  padding: 5px;
+}
+
+.formButton {
+  padding: 10px;
+}
+
+.formButtonDiv {
+  padding: 15px;
+  text-align: center;
+}
+
+
 .tooltipImg {
   margin-bottom: 2px;
 }
