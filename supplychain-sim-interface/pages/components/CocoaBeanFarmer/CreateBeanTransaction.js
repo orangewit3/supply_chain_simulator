@@ -52,7 +52,34 @@ const ColorButton = withStyles((theme) => ({
   },
 }))(Button)
 
+/**
+ * @dev Current attempt at decoupling boolean. See next dev comment for more 
+ * info.
+ */
+export const showBeanEvent = false
+
+/**
+ * @dev Below is Jason's previous attempt at decoupling boolean of 
+ * `showBeanEvent`, a boolean that we can use in our higher-order component, 
+ * `index.js`, to perform an if-check to display the event data of the newly 
+ * created transaction.
+ */
+// export async function useBeanEvent(showBeanEvent) {
+//   if (!showBeanEvent) {
+//     const [ showBeanEvent, setBeanEvent ] = useState(false)
+
+//     return [ showBeanEvent, setBeanEvent ]
+//   }
+
+//   return showBeanEvent
+// }
+
 const CreateBeanTransactionForm = () => {
+  /**
+   * @dev
+   * @todo The several lines below are for handling a submission of the form 
+   * using the ENTER key (denoted as `event.which === 13`)
+   */
   // const handleEnter = (e) => {
   //   const key = e.which
   //   if (key === 13) {
@@ -74,7 +101,11 @@ const CreateBeanTransactionForm = () => {
       "0xcaDbE04877927d4450335FDbB4b2EA2018883cD2",
     )
 
-
+    /**
+     * @dev If you uncomment the next 3 lines, then this allows MetaMask to
+     * request to be connected to the app after we make a call to the
+     * `createBeanTransaction` function.
+     */
     // const ethereum = window.ethereum
     // const web3Instance = new Web3(ethereum)
     // const enabledWeb3 = await ethereum.enable()
@@ -82,6 +113,7 @@ const CreateBeanTransactionForm = () => {
     const accountAddress = await account[ 0 ]
 
     /**
+     * @dev
      * @todo We need an if-check to validate the form has all fields filled
      */
     // if (
@@ -96,72 +128,69 @@ const CreateBeanTransactionForm = () => {
         beanTxnQuantityToSend.toString()
       ).send({ from: accountAddress })
 
-    contract.events.BeanTransaction({
-      fromBlock: 0
-    }).on('bean transaction data', event => console.log(event))
+    showBeanEvent = true
+
     //   } else {
     //     console.log()
     //   }
   }
 
   return (
-    <div className={ styles.card }>
-      <form on>
-        <Grid className={ styles.formField } item>
-          <FormControl>
-            <RedditTextField
-              label='name'
-              size='small'
-              required={ true }
-              // onKeyPress={ handleEnter }
-              variant='filled'
-              placeholder={ beanTxnName }
-              onChange={ (e) =>
-                setBeanTxnName(e.currentTarget.value)
-              }
-            />
-          </FormControl>
-        </Grid>
-        <Grid className={ styles.formField } item>
-          <FormControl>
-            <RedditTextField
-              label='description'
-              size='small'
-              required={ true }
-              // onKeyPress={ handleEnter }
-              variant='filled'
-              placeholder={ beanTxnDescription }
-              onChange={ (e) =>
-                setBeanTxnDescription(e.currentTarget.value)
-              }
-            />
-          </FormControl>
-        </Grid>
-        <Grid className={ styles.formField } item>
-          <FormControl>
-            <RedditTextField
-              label='quantity to send'
-              size='small'
-              required={ true }
-              // onKeyPress={ handleEnter }
-              variant='filled'
-              placeholder={ beanTxnQuantityToSend }
-              onChange={ (e) =>
-                setBeanTxnQuantityToSend(e.currentTarget.value)
-              }
-            />
-          </FormControl>
-        </Grid>
-        <div className={ styles.formButtonDiv }>
-          <ColorButton
-            className={ styles.formButton }
-            onClick={ handleCreateBeanTransaction }
-          >
-            Create Transaction
+    <form on>
+      <Grid className={ styles.formField } item>
+        <FormControl>
+          <RedditTextField
+            label='name'
+            size='small'
+            required={ true }
+            // onKeyPress={ handleEnter }
+            variant='filled'
+            placeholder={ beanTxnName }
+            onChange={ (e) =>
+              setBeanTxnName(e.currentTarget.value)
+            }
+          />
+        </FormControl>
+      </Grid>
+      <Grid className={ styles.formField } item>
+        <FormControl>
+          <RedditTextField
+            label='description'
+            size='small'
+            required={ true }
+            // onKeyPress={ handleEnter }
+            variant='filled'
+            placeholder={ beanTxnDescription }
+            onChange={ (e) =>
+              setBeanTxnDescription(e.currentTarget.value)
+            }
+          />
+        </FormControl>
+      </Grid>
+      <Grid className={ styles.formField } item>
+        <FormControl>
+          <RedditTextField
+            label='quantity to send'
+            size='small'
+            required={ true }
+            // onKeyPress={ handleEnter }
+            variant='filled'
+            placeholder={ beanTxnQuantityToSend }
+            onChange={ (e) =>
+              setBeanTxnQuantityToSend(e.currentTarget.value)
+            }
+          />
+        </FormControl>
+      </Grid>
+      <div className={ styles.formButtonDiv }>
+        <ColorButton
+          className={ styles.formButton }
+          onClick={ handleCreateBeanTransaction }
+        >
+          Create Transaction
             </ColorButton>
-        </div>
-      </form>
-    </div>
+      </div>
+    </form>
   )
 }
 

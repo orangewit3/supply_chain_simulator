@@ -76,13 +76,13 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 90%;
+  max-width: 300px;
   margin-top: 3rem;
 }
 
 .card {
   margin: 1rem;
-  flex-basis: 60%;
+  flex-basis: 40%;
   padding: 1.5rem;
   text-align: left;
   color: inherit;
@@ -108,6 +108,25 @@
   margin: 0;
   font-size: 1.25rem;
   line-height: 1.5;
+}
+
+.createTransactionCard {
+  margin: 1rem;
+  flex-basis: 60%;
+  padding: 1.5rem;
+  text-align: left;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.createTransactionCard:hover,
+.createTransactionCard:focus,
+.createTransactionCard:active {
+  color: #0070f3;
+  border-color: #da7202;
 }
 
 .logo {

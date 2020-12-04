@@ -6,6 +6,7 @@ import Manufacturer from '../lib/ethereum/contract-interfaces/manufacturer'
 
 /** @dev Components */
 import CreateBeanTransaction from './components/CocoaBeanFarmer/CreateBeanTransaction'
+import showBeanEvent from './components/CocoaBeanFarmer/CreateBeanTransaction'
 
 /** @dev Sample data  */
 import memeData from '../lib/meme-data.json'
@@ -14,6 +15,7 @@ import PropTypes from 'prop-types'
 import {
   Button,
   ClickAwayListener,
+  Grid,
   makeStyles,
   Paper,
   Table,
@@ -24,6 +26,7 @@ import {
   TableRow,
   TableSortLabel,
   Tooltip,
+  Link,
 } from '@material-ui/core'
 import styles from '../styles/Home.module.css'
 
@@ -38,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   table: {
     // minWidth: 500,
-    maxWidth: '300',
+    maxWidth: '300px',
   },
   visuallyHidden: {
     border: 0,
@@ -60,11 +63,11 @@ const useStyles = makeStyles((theme) => ({
 // For sortable head
 const headCells = [
   { id: 'id', numeric: true, disablePadding: false, label: 'id' },
-  { id: 'description', numeric: false, disablePadding: true, label: 'description' },
+  { id: 'description', numeric: false, disablePadding: false, label: 'description' },
   { id: 'amount', numeric: true, disablePadding: false, label: 'amount' },
-  { id: 'isCredit', numeric: false, disablePadding: true, label: 'isCredit' },
+  { id: 'isCredit', numeric: false, disablePadding: false, label: 'isCredit' },
   { id: 'date', numeric: true, disablePadding: false, label: 'date' },
-  { id: 'imageUrl', numeric: false, disablePadding: true, label: 'imageUrl' }
+  { id: 'imageUrl', numeric: false, disablePadding: false, label: 'imageUrl' }
 ]
 
 // Create data for table
@@ -149,26 +152,6 @@ EnhancedTableHead.propTypes = {
 }
 
 
-async function useCreateBeanTxn(event) {
-  event.preventDefault()
-
-  const [ beanTxn, setbeanTxn ] = useState([])
-
-  useEffect(() => {
-    /** @dev Add state to create a new bean transactions */
-    let beanTxnArgs = {
-      _name,
-      _description,
-      _quantityToSend
-    }
-
-    setbeanTxn(beanTxnArgs)
-  }, [])
-
-  return beanTxn
-}
-
-
 /**
  * @dev Main functional component:
  * 
@@ -201,19 +184,12 @@ function Home({ allSupplyChainTxns }) {
     setOpen(true)
   }
 
-  let beanTxnState = {
-    name: "",
-    description: "",
-    quantityToSend: 0
-  }
-
-
   allSupplyChainTxns.map((txn, index) => {
     rows.push(createData(
       txn.id,
       txn.description,
       txn.amount,
-      txn.isCredit,
+      '' + txn.isCredit,
       txn.date,
       txn.imageUrl
     ))
@@ -237,8 +213,27 @@ function Home({ allSupplyChainTxns }) {
           Start by creating a transaction.
         </p>
 
-        <div>
+        <div className={ styles.createTransactionCard }>
           <CreateBeanTransaction />
+        </div>
+
+        <div className={ styles.grid }>
+          { showBeanEvent ? (
+            <p>
+              No transaction event data yet.
+            </p>
+          ) : (
+              <div>
+                {
+                  console.log(
+                    contract.events.BeanTransaction({
+                      fromBlock: 0
+                    }).on('bean transaction data', event => console.log(event))
+                  )
+                }
+              </div>
+            )
+          }
         </div>
 
         <div className={ styles.grid }>
@@ -267,7 +262,7 @@ function Home({ allSupplyChainTxns }) {
 
                         return (
                           <TableRow>
-                            <TableCell component="th" scope="row" padding="none">
+                            {/* <TableCell component="th" scope="row" padding="none">
                               <ClickAwayListener onClickAway={ handleTooltipClose }>
                                 <Tooltip
                                   arrow
@@ -296,8 +291,8 @@ function Home({ allSupplyChainTxns }) {
                                   </div>
                                 </Tooltip>
                               </ClickAwayListener>
-                            </TableCell>
-                            <TableCell id={ labelId } align="right" size='small'>
+                            </TableCell> */}
+                            <TableCell component="th" id={ labelId } scope="row" size='small'>
                               { row.id }
                             </TableCell>
                             <TableCell align="right" size='small'>{ row.description }</TableCell>
@@ -306,12 +301,12 @@ function Home({ allSupplyChainTxns }) {
                             <TableCell
                               align="right"
                               size='small'
-                              style={ {
-                                whiteSpace: 'nowrap',
-                                textOverflow: 'ellipsis',
-                                overflow: 'hidden',
-                                maxWidth: '1px'
-                              } }
+                            // style={ {
+                            //   whiteSpace: 'nowrap',
+                            //   textOverflow: 'ellipsis',
+                            //   overflow: 'hidden',
+                            //   maxWidth: '190px'
+                            // } }
                             >
                               { row.date }
                             </TableCell>
@@ -322,10 +317,10 @@ function Home({ allSupplyChainTxns }) {
                                 whiteSpace: 'nowrap',
                                 textOverflow: 'ellipsis',
                                 overflow: 'hidden',
-                                maxWidth: '1px'
+                                maxWidth: '250px',
                               } }
                             >
-                              { row.imageUrl }
+                              <Link href={ row.imageUrl } target='_blank'>{ row.imageUrl }</Link>
                             </TableCell>
                           </TableRow>
                         )
