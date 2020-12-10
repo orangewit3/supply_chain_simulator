@@ -1,7 +1,24 @@
-import web3 from '../web3'
+import { ethers, Contract } from 'ethers'
 import CocoaBeanFarmer from '../../../../build/contracts/CocoaBeanFarmer.json'
 
 
+export default async function api() {
+  const walletlessProvider = new ethers.providers.InfuraProvider(
+    'goerli',
+    process.env.INFURA_ENDPOINT_KEY
+  )
+
+  const contract = new Contract(
+    process.env.COCOA_BEAN_FARMER_CONTRACT_ADDRESS,
+    CocoaBeanFarmer.abi,
+    walletlessProvider
+  )
+
+  return contract
+}
+
+
+/*
 const instance = () => {
   const contract = new web3.eth.Contract(
     CocoaBeanFarmer.abi,
@@ -26,3 +43,4 @@ const instance = () => {
 }
 
 export default instance
+*/

@@ -1,18 +1,15 @@
-const HDWalletProvider = require('@truffle/hdwallet-provider')
-const Web3 = require('web3')
-const compiledSupplyChainTransactions = require('../../../build/contracts/SupplyChainTransactions.json')
-const compiledCocoaBeanFarmer = require('../../../build/contracts/CocoaBeanFarmer.json')
-const compiledManufacturer = require('../../../build/contracts/Manufacturer.json')
-const compiledCarrier = require('../../../build/contracts/Carrier.json')
+const { ethers } = require('ethers')
+const SupplyChainTransactions = require('../../../build/contracts/SupplyChainTransactions.json')
+const CocoaBeanFarmer = require('../../../build/contracts/CocoaBeanFarmer.json')
+const Manufacturer = require('../../../build/contracts/Manufacturer.json')
+// const Carrer = require('../../../build/contracts/Carrier.json')
 
-let provider = new HDWalletProvider({
-  // HDWalletProvider documentation (for more info): 
-  // https://github.com/trufflesuite/truffle/tree/develop/packages/hdwallet-provider
-  mnemonic: process.env.WALLET_MNEMONIC,
-  providerOrUrl: process.env.INFURA_ENDPOINT,
-})
+let provider = new ethers.providers.InfuraProvider(
+  'goerli',
+  process.env.INFURA_ENDPOINT_KEY,
+  walletlessProvider
+)
 
-const web3 = new Web3(provider)
 
 export default async function deploy(req, res) {
   const addresses = await web3.eth.getAccounts()
@@ -23,9 +20,9 @@ export default async function deploy(req, res) {
   )
 
   const supplyChainTransactionsContract = await new web3.eth.Contract(
-    compiledSupplyChainTransactions.abi
+    SupplyChainTransactions.abi
   )
-    .deploy({ data: compiledSupplyChainTransactions.bytecode })
+    .deploy({ data: SupplyChainTransactions.bytecode })
     .send({ gas: '1500000', from: addresses[ 0 ] })
 
   console.log(`
@@ -39,10 +36,10 @@ export default async function deploy(req, res) {
   )
 
   const cocoaBeanFarmerContract = await new web3.eth.Contract(
-    compiledCocoaBeanFarmer.abi
+    CocoaBeanFarmer.abi
   )
     .deploy({
-      data: compiledCocoaBeanFarmer.bytecode,
+      data: CocoaBeanFarmer.bytecode,
       // Set `initialQuantity` = 100
       arguments: [
         100,
@@ -62,10 +59,10 @@ export default async function deploy(req, res) {
   )
 
   const manufacturerContract = await new web3.eth.Contract(
-    compiledManufacturer.abi
+    Manufacturer.abi
   )
     .deploy({
-      data: compiledManufacturer.bytecode,
+      data: Manufacturer.bytecode,
       // Set `initialBeanCount` = 100
       // Set `estimatedBeansToCoffeeRatio` = 1
       // Set `estimatedBeanValueInWei` = 1
@@ -88,10 +85,10 @@ export default async function deploy(req, res) {
   )
 
   const carrierContract = await new web3.eth.Contract(
-    compiledCarrier.abi
+    Carrer.abi
   )
     .deploy({
-      data: compiledCarrier.bytecode,
+      data: Carrer.bytecode,
       // Set `maxCapacityPerTransit` = 10
       arguments: [
         10,

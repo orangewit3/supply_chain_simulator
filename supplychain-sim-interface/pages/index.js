@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import web3 from 'web3'
-import CocoaBeanFarmer from '../lib/ethereum/contract-interfaces/cocoaBeanFarmer'
-import Manufacturer from '../lib/ethereum/contract-interfaces/manufacturer'
+import CocoaBeanFarmer from '../lib/ethereum/contract-api/cocoaBeanFarmer'
+import Manufacturer from '../lib/ethereum/contract-api/manufacturer'
 
 /** @dev Components */
-import CreateBeanTransaction from './components/CocoaBeanFarmer/CreateBeanTransaction'
-import showBeanEvent from './components/CocoaBeanFarmer/CreateBeanTransaction'
+import CreateBeanTransaction from './components/ContractAPIs/CocoaBeanFarmer/CreateBeanTransaction'
+import showBeanEvent from './components/ContractAPIs/CocoaBeanFarmer/CreateBeanTransaction'
+import Header from './components/Layouts/Header'
 
 /** @dev Sample data  */
 import memeData from '../lib/meme-data.json'
@@ -197,72 +197,66 @@ function Home({ allSupplyChainTxns }) {
 
 
   return (
-    <div className={ styles.container }>
-      <Head>
-        <title>Supply Chain Simulator</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div>
+      <Header />
+      <div className={ styles.container }>
+        <Head>
+          <title>Supply Chain Simulator</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <main className={ styles.main }>
+        <main className={ styles.main }>
 
-        <h1 className={ styles.title }>
-          Supply Chain Simulator
-        </h1>
+          <h1 class='title-font mb-r text-4xl font-bold leading-10 tracking-tight'>Supply Chain Simulator</h1>
 
-        <p className={ styles.description }>
-          Start by creating a transaction.
-        </p>
-
-        <div className={ styles.createTransactionCard }>
           <CreateBeanTransaction />
-        </div>
 
-        <div className={ styles.grid }>
-          { showBeanEvent ? (
-            <p>
-              No transaction event data yet.
-            </p>
-          ) : (
+          <div>
+            { showBeanEvent ? (
+              <p>
+                No transaction event data yet.
+              </p>
+            ) : (
+                <div>
+                  {
+                    console.log(
+                      contract.events.BeanTransaction({
+                        fromBlock: 0
+                      }).on('bean transaction data', event => console.log(event))
+                    )
+                  }
+                </div>
+              )
+            }
+          </div>
+
+          <div className={ styles.grid }>
+
+            <div className={ styles.card } >
               <div>
-                {
-                  console.log(
-                    contract.events.BeanTransaction({
-                      fromBlock: 0
-                    }).on('bean transaction data', event => console.log(event))
-                  )
-                }
-              </div>
-            )
-          }
-        </div>
-
-        <div className={ styles.grid }>
-
-          <div className={ styles.card } >
-            <div>
-              <h2 className={ styles.description }>
-                Transaction Details
+                <h2 className={ styles.description }>
+                  Transaction Details
               </h2>
-              <TableContainer component={ Paper }>
-                <Table
-                  className={ classes.table }
-                  aria-labelledby='tableTitle'
-                  aria-label='enhanced table'
-                >
-                  <EnhancedTableHead
-                    classes={ classes }
-                    order={ order }
-                    orderBy={ orderBy }
-                    onRequestSort={ handleRequestSort }
-                  />
-                  <TableBody>
-                    { stableSort(rows, getComparator(order, orderBy))
-                      .map((row, index) => {
-                        const labelId = `enhanced-table-checkbox-${index}`
+                <TableContainer component={ Paper }>
+                  <Table
+                    className={ classes.table }
+                    aria-labelledby='tableTitle'
+                    aria-label='enhanced table'
+                  >
+                    <EnhancedTableHead
+                      classes={ classes }
+                      order={ order }
+                      orderBy={ orderBy }
+                      onRequestSort={ handleRequestSort }
+                    />
+                    <TableBody>
+                      { stableSort(rows, getComparator(order, orderBy))
+                        .map((row, index) => {
+                          const labelId = `enhanced-table-checkbox-${index}`
 
-                        return (
-                          <TableRow>
-                            {/* <TableCell component="th" scope="row" padding="none">
+                          return (
+                            <TableRow>
+                              {/* <TableCell component="th" scope="row" padding="none">
                               <ClickAwayListener onClickAway={ handleTooltipClose }>
                                 <Tooltip
                                   arrow
@@ -292,62 +286,63 @@ function Home({ allSupplyChainTxns }) {
                                 </Tooltip>
                               </ClickAwayListener>
                             </TableCell> */}
-                            <TableCell component="th" id={ labelId } scope="row" size='small'>
-                              { row.id }
-                            </TableCell>
-                            <TableCell align="right" size='small'>{ row.description }</TableCell>
-                            <TableCell align="right" size='small'>{ row.amount }</TableCell>
-                            <TableCell align="right" size='small'>{ row.isCredit }</TableCell>
-                            <TableCell
-                              align="right"
-                              size='small'
-                            // style={ {
-                            //   whiteSpace: 'nowrap',
-                            //   textOverflow: 'ellipsis',
-                            //   overflow: 'hidden',
-                            //   maxWidth: '190px'
-                            // } }
-                            >
-                              { row.date }
-                            </TableCell>
-                            <TableCell
-                              align="right"
-                              size='small'
-                              style={ {
-                                whiteSpace: 'nowrap',
-                                textOverflow: 'ellipsis',
-                                overflow: 'hidden',
-                                maxWidth: '250px',
-                              } }
-                            >
-                              <Link href={ row.imageUrl } target='_blank'>{ row.imageUrl }</Link>
-                            </TableCell>
-                          </TableRow>
-                        )
-                      }) }
-                  </TableBody>
-                </Table>
-              </TableContainer>
+                              <TableCell component="th" id={ labelId } scope="row" size='small'>
+                                { row.id }
+                              </TableCell>
+                              <TableCell align="right" size='small'>{ row.description }</TableCell>
+                              <TableCell align="right" size='small'>{ row.amount }</TableCell>
+                              <TableCell align="right" size='small'>{ row.isCredit }</TableCell>
+                              <TableCell
+                                align="right"
+                                size='small'
+                              // style={ {
+                              //   whiteSpace: 'nowrap',
+                              //   textOverflow: 'ellipsis',
+                              //   overflow: 'hidden',
+                              //   maxWidth: '190px'
+                              // } }
+                              >
+                                { row.date }
+                              </TableCell>
+                              <TableCell
+                                align="right"
+                                size='small'
+                                style={ {
+                                  whiteSpace: 'nowrap',
+                                  textOverflow: 'ellipsis',
+                                  overflow: 'hidden',
+                                  maxWidth: '250px',
+                                } }
+                              >
+                                <Link href={ row.imageUrl } target='_blank'>{ row.imageUrl }</Link>
+                              </TableCell>
+                            </TableRow>
+                          )
+                        }) }
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </div>
             </div>
           </div>
-        </div>
-      </main>
+        </main>
 
-      <footer className={ styles.footer }>
-        Made with 💙 by{ ' ' }
-        <a
-          href="https://giesgroups.illinois.edu/disruptionlab/affiliated-staff/"
-          target="_blank"
-          rel="no credit where credit is due"
-        >
-          <img
-            src="/uni-wordmark-full-color.svg"
-            alt="no credit where credit is due"
-            className={ styles.logo }
-          />
-        </a>
-      </footer>
-    </div >
+        <footer className={ styles.footer }>
+          Made with 💙 by{ ' ' }
+          <a
+            href="https://giesgroups.illinois.edu/disruptionlab/affiliated-staff/"
+            target="_blank"
+            rel="no credit where credit is due"
+          >
+            <img
+              src="/uni-wordmark-full-color.svg"
+              alt="no credit where credit is due"
+              className={ styles.logo }
+            />
+          </a>
+        </footer>
+      </div >
+    </div>
   )
 }
 
