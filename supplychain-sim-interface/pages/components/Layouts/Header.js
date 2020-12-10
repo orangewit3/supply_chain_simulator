@@ -1,15 +1,7 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useMemo
-} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useEffect, useRef } from 'react'
 
 import { unlockBrowser } from '../../../lib/ethereum/web3/connect'
 import Link from 'next/link'
-import { node } from 'prop-types'
 
 
 function useDetectOutsideClick(el, initialState) {
@@ -36,57 +28,10 @@ function useDetectOutsideClick(el, initialState) {
   return [ isActive, setIsActive ]
 }
 
-function 
-
-function useModalOpen(modal) {
-  const openModal = useSelector((AppState) => state.application.openModal)
-}
-
-function useToggleModal(modal) {
-  const open = useModalOpen(modal)
-  const dispatch = useDispatch()
-
-  return useCallback(() => dispatch(
-    setOpenModal(open ? null : modal)
-  ),
-    [ dispatch, modal, open ]
-  )
-}
-
-
-function useOnClickOutside(node, handler) {
-  const handlerRef = useRef(handler)
-
-  useEffect(() => {
-    handlerRef.current = handler
-  }, [ handler ])
-
-  useEffect(() => {
-    const handleOnClickOutside = (event) => {
-      if (node.current?.contains(event.target) ?? false) {
-        return
-      }
-
-      if (handlerRef.current) handlerRef.current()
-    }
-
-    document.addEventListener('mousedown', handleOnClickOutside)
-
-    return () => {
-      document.removeEventListener('mousedown', handleOnClickOutside)
-    }
-  }, [ node ])
-}
-
-
 
 export default function Header() {
   const dropdownRef = useRef(null)
   const [ isActive, setIsActive ] = useDetectOutsideClick(dropdownRef, false)
-
-  const node = useRef()
-  const toggle = useToggleProfile()
-  useOnClickOutside(node, isActive ? toggle : undefined)
 
   const onProfileClick = () => setIsActive(!isActive)
   const onMenuClick = () => setIsActive(!isActive)
@@ -100,7 +45,7 @@ export default function Header() {
   return (
     <nav
       class="bg-yellow-600"
-      ref={ node }
+      ref={ dropdownRef }
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
