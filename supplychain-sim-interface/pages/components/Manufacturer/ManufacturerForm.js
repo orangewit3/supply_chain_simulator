@@ -40,7 +40,7 @@ export const ManufacturerForm = memo(({
             Estimated bean value in wei { ' ' }
             <p>
               <a class='hover:underline font-normal text-blue-400' href='https://www.coingecko.com/en/coins/ethereum' target='_blank'>
-                { `(Note: the wei per ether is WEI/ETH ➡️ 10^18 WEI/1 ETH and 1 ETH/USD = $${etherPrice})` }
+                { `(Note: 10^18 WEI ➡️ 1 ETH and 1 ETH/1 USD = $${etherPrice})` }
               </a>
             </p>
           </label>

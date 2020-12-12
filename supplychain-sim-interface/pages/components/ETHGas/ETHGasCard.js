@@ -31,14 +31,13 @@ const ETHGasCard = () => {
           >
             Current ETH gas prices
           </a>
-          <a class='inline absolute mx-1' data-tip data-form='eth-gas-station'>
+          <a class='inline absolute mx-1' data-tip='' data-for='eth-gas-station'>
             <img
-              // class='inline absolute mx-1'
               src='./tooltip-icon.png'
               width='13'
             />
           </a>
-          <ReactTooltip id='eth-gas-station' place='right' effect='solid'>
+          <ReactTooltip id='eth-gas-station' effect='solid' type='dark'>
             <span>Gas price info taken from ETH Gas Station</span>
           </ReactTooltip>
         </div>

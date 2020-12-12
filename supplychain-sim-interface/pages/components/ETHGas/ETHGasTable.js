@@ -27,7 +27,7 @@ export default function ETHGasTable({
           </th>
 
           <th class="px-5 py-2">
-            <span class="text-gray-300">Wait (minutes)</span>
+            <span class="text-gray-300">Est. Wait (min.)</span>
           </th>
         </tr>
       </thead>
