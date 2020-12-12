@@ -8,7 +8,7 @@
 }
 
 .main {
-  padding: 5rem 0;
+  padding: 2.5rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -91,8 +91,6 @@
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-
-
 .card:hover,
 .card:focus,
 .card:active {
@@ -109,14 +107,6 @@
   margin: 0;
   font-size: 1.25rem;
   line-height: 1.5;
-}
-
-
-.createTransactionCard:hover,
-.createTransactionCard:focus,
-.createTransactionCard:active {
-  color: #0070f3;
-  border-color: #da7202;
 }
 
 .logo {
@@ -139,24 +129,6 @@
   background-color: #80808071;
 }
 
-.form {
-  margin-bottom: 18px !important;
-}
-
-.formField {
-  padding: 5px;
-}
-
-.formButton {
-  padding: 10px;
-}
-
-.formButtonDiv {
-  padding: 15px;
-  text-align: center;
-}
-
-
 .tooltipImg {
   margin-bottom: 2px;
 }
@@ -166,42 +138,4 @@
     width: 100%;
     flex-direction: column;
   }
-}
-
-
-.menu {
-  background: #ffffff;
-  border-radius: 8px;
-  position: absolute;
-  top: 60px;
-  right: 0;
-  width: 300px;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-20px);
-  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
-}
-
-.menu.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.menu li {
-  border-bottom: 1px solid #dddddd;
-}
-
-.menu li a {
-  text-decoration: none;
-  color: #333333;
-  padding: 15px 20px;
-  display: block;
 }

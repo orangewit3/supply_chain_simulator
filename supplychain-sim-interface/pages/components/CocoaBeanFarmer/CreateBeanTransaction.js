@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import contract from '../../../../lib/ethereum/contract-api/cocoaBeanFarmer'
-import styles from '../../../../styles/Home.module.css'
+import contract from '../../../lib/ethereum/contract-api/cocoaBeanFarmer'
 
 
 let CocoaBeanFarmer = contract
@@ -29,9 +28,9 @@ export const showBeanEvent = false
 
 const CreateBeanTransactionForm = () => {
   // State for form
-  const [ beanTxnName, setBeanTxnName ] = useState('txn1')
-  const [ beanTxnDescription, setBeanTxnDescription ] = useState('first bean txn')
-  const [ beanTxnQuantityToSend, setBeanTxnQuantityToSend ] = useState('10')
+  const [ beanTxnName, setBeanTxnName ] = useState()
+  const [ beanTxnDescription, setBeanTxnDescription ] = useState()
+  const [ beanTxnQuantityToSend, setBeanTxnQuantityToSend ] = useState()
 
 
   const handleCreateBeanTransaction = async () => {
@@ -77,10 +76,10 @@ const CreateBeanTransactionForm = () => {
 
   return (
     <div class="grid max-h-screen place-items-center">
-      <div class="w-11/12 p-10 bg-white sm:w-auto md:w-auto lg:w-auto">
-        <h1 class="text-xl font-semibold">Start by creating a transaction</h1>
+      <div class="w-11/12 p-10 bg-white sm:w-max md:w-auto lg:w-auto">
+        <h1 class="text-xl font-semibold text-center">Create the cocoa bean farmer's first transaction</h1>
         <form class="mt-4">
-          <label for="txn-name" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">Txn Name</label>
+          <label for="txn-name" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">Txn name</label>
           <input
             id="txn-name"
             type="text"
@@ -90,7 +89,7 @@ const CreateBeanTransactionForm = () => {
             required
             onChange={ (e) => setBeanTxnName(e.currentTarget.value) }
           />
-          <label for="txn-description" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">Txn Description</label>
+          <label for="txn-description" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">Txn description</label>
           <input
             id="txn-description"
             type="text"
@@ -100,7 +99,7 @@ const CreateBeanTransactionForm = () => {
             required
             onChange={ (e) => setBeanTxnDescription(e.currentTarget.value) }
           />
-          <label for="quantity-to-send" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">Quantity to Send</label>
+          <label for="quantity-to-send" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">Quantity to send</label>
           <input
             id="quantity-to-send"
             type="number"
@@ -114,7 +113,7 @@ const CreateBeanTransactionForm = () => {
             <button
               // type="submit"
               class="w-3/4 py-3 mt-6 rounded-3xl  font-normal shadow-lg hover:bg-gray-200 hover:shadow-none"
-              onClick={ handleCreateBeanTransaction() }
+              onClick={ handleCreateBeanTransaction }
             >
               Create Transaction
           </button>

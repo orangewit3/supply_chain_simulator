@@ -37,7 +37,7 @@ export default function Header() {
   const onMenuClick = () => setIsActive(!isActive)
 
   function onConnect() {
-    const { walletAddress } = unlockBrowser({
+    const { walletAddress, error, walletProvider } = unlockBrowser({
       debug: true,
     })
   }

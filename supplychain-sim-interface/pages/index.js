@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import CocoaBeanFarmer from '../lib/ethereum/contract-api/cocoaBeanFarmer'
-import Manufacturer from '../lib/ethereum/contract-api/manufacturer'
 
 /** @dev Components */
-import CreateBeanTransaction from './components/ContractAPIs/CocoaBeanFarmer/CreateBeanTransaction'
-import showBeanEvent from './components/ContractAPIs/CocoaBeanFarmer/CreateBeanTransaction'
+import CreateBeanTransaction from './components/CocoaBeanFarmer/CreateBeanTransaction'
+import showBeanEvent from './components/CocoaBeanFarmer/CreateBeanTransaction'
+import DeploySupplyChainTransactions from './components/SupplyChainTransactions/DeploySupplyChainTransactions'
+import DeployCocoaBeanFarmer from './components/CocoaBeanFarmer/DeployCocoaBeanFarmer'
+import Manufacturer from './components/Manufacturer/DeployManufacturer'
 import Header from './components/Layouts/Header'
 
 /** @dev Sample data  */
@@ -29,6 +31,7 @@ import {
   Link,
 } from '@material-ui/core'
 import styles from '../styles/Home.module.css'
+import DeployManufacturer from './components/Manufacturer/DeployManufacturer'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -207,11 +210,15 @@ function Home({ allSupplyChainTxns }) {
 
         <main className={ styles.main }>
 
-          <h1 class='title-font mb-r text-4xl font-bold leading-10 tracking-tight'>Supply Chain Simulator</h1>
+          <h1 class='title-font mb-r text-4xl font-bold leading-15 tracking-tight'>Supply Chain Simulator</h1>
+
+          <DeploySupplyChainTransactions />
+          <DeployCocoaBeanFarmer />
+          <DeployManufacturer />
 
           <CreateBeanTransaction />
 
-          <div>
+          <div class='grid m-20 py-20'>
             { showBeanEvent ? (
               <p>
                 No transaction event data yet.
