@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import deploySupplyChainTransactions from '../../../lib/ethereum/web3/deploy/deploySupplyChainTransactions'
 
 const DeploySupplyChainTransactions = () => {
-  const [ walletProviderDeclined, setWalletProviderDeclined ] = useState(false)
+  // const [ walletProviderDeclined, setWalletProviderDeclined ] = useState(false)
 
   return (
     <div class="grid mt-12 max-h-screen place-items-center">
@@ -16,11 +16,11 @@ const DeploySupplyChainTransactions = () => {
           >
             Deploy SupplyChainTransactions
           </button>
-          { walletProviderDeclined && (
+          {/* { walletProviderDeclined && (
             <Modal>
               <h1>Could not deploy contract because wallet integration was declined.</h1>
             </Modal>
-          ) }
+          ) } */}
         </div>
       </div>
     </div >

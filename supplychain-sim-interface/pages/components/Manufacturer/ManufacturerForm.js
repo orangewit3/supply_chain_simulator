@@ -40,7 +40,7 @@ export const ManufacturerForm = memo(({
             Estimated bean value in wei { ' ' }
             <p>
               <a class='hover:underline font-normal text-blue-400' href='https://www.coingecko.com/en/coins/ethereum' target='_blank'>
-                { `(Note: WEI/ETH ➡️ 10^18 WEI/1 ETH and 1 ETH/USD = $${etherPrice})` }
+                { `(Note: the wei per ether is WEI/ETH ➡️ 10^18 WEI/1 ETH and 1 ETH/USD = $${etherPrice})` }
               </a>
             </p>
           </label>
@@ -48,7 +48,7 @@ export const ManufacturerForm = memo(({
             id="estimated-bean-value-in-wei"
             type="number"
             name="estimated-bean-value-in-wei"
-            placeholder="100000000000000 wei = 0.0001 ETH"
+            placeholder={`100000000000000 wei = 0.0001 ETH = $${(etherPrice/10000).toFixed(5)}`}
             class="block w-full p-3 mt-2 rounded-3xl text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
             required
             onChange={ initialBeanCount }

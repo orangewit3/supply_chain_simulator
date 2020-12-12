@@ -23,6 +23,11 @@ export const useEtherPrice = () => {
     getPrice()
   }, [])
 
+  /**
+   * @dev
+   * @todo The line that follows is very likely redundant due to the error check
+   * in the API call itself in `pages/api/`
+   */
   if (priceError) return "Error in retrieving current price from CoinGecko"
 
   return loadingPrice ? "Loading ETH price...." : etherPrice

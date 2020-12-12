@@ -3,10 +3,12 @@ import Head from 'next/head'
 import CocoaBeanFarmer from '../lib/ethereum/contract-api/cocoaBeanFarmer'
 
 /** @dev Components */
+import ETHGasCard from './components/ETHGas/ETHGasCard'
 import CreateBeanTransaction from './components/CocoaBeanFarmer/CreateBeanTransaction'
 import showBeanEvent from './components/CocoaBeanFarmer/CreateBeanTransaction'
 import DeploySupplyChainTransactions from './components/SupplyChainTransactions/DeploySupplyChainTransactions'
 import DeployCocoaBeanFarmer from './components/CocoaBeanFarmer/DeployCocoaBeanFarmer'
+import DeployManufacturer from './components/Manufacturer/DeployManufacturer'
 import Manufacturer from './components/Manufacturer/DeployManufacturer'
 import Header from './components/Layouts/Header'
 
@@ -31,7 +33,6 @@ import {
   Link,
 } from '@material-ui/core'
 import styles from '../styles/Home.module.css'
-import DeployManufacturer from './components/Manufacturer/DeployManufacturer'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -212,6 +213,7 @@ function Home({ allSupplyChainTxns }) {
 
           <h1 class='title-font mb-r text-4xl font-bold leading-15 tracking-tight'>Supply Chain Simulator</h1>
 
+          <ETHGasCard />
           <DeploySupplyChainTransactions />
           <DeployCocoaBeanFarmer />
           <DeployManufacturer />
