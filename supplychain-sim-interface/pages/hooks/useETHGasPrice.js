@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 
-
+/**
+ * @dev
+ * @todo This needs to update in real-time to the user
+ */
 export const useETHGasPrice = () => {
   const [ ethGasPrice, setETHGasPrice ] = useState([])
   const [ loadingETHGasPrice, setLoadingETHGasPrice ] = useState(true)
