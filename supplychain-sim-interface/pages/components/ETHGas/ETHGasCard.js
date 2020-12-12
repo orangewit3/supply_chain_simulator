@@ -22,7 +22,7 @@ const ETHGasCard = () => {
 
   return (
     <div class="grid mt-12 max-h-screen place-items-center">
-      <div class="w-11/12 py-5 bg-gray-200 sm:w-auto md:w-auto lg:w-auto shadow-lg rounded-3xl">
+      <div class="w-11/12 py-5 sm:w-auto md:w-auto lg:w-auto">
         <div class='text-center text-lg'>
           <a
             class='hover:underline hover:text-blue-400'
@@ -41,7 +41,7 @@ const ETHGasCard = () => {
             <span>Gas price info taken from ETH Gas Station</span>
           </ReactTooltip>
         </div>
-        <div class='grid my-5 mx-3'>
+        <div class='flex my-5 mx-3'>
           <ETHGasTable
             fastGasPrice={ fastETHGasPrice }
             fastestGasPrice={ fastestETHGasPrice }

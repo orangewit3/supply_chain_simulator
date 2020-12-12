@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import CocoaBeanFarmer from '../lib/ethereum/contract-api/cocoaBeanFarmer'
+
+/** @dev Layouts */
+import Header from './components/Layouts/Header'
+import Footer from './components/Layouts/Footer'
 
 /** @dev Components */
 import ETHGasCard from './components/ETHGas/ETHGasCard'
@@ -10,7 +13,6 @@ import DeploySupplyChainTransactions from './components/SupplyChainTransactions/
 import DeployCocoaBeanFarmer from './components/CocoaBeanFarmer/DeployCocoaBeanFarmer'
 import DeployManufacturer from './components/Manufacturer/DeployManufacturer'
 import Manufacturer from './components/Manufacturer/DeployManufacturer'
-import Header from './components/Layouts/Header'
 
 /** @dev Sample data  */
 import memeData from '../lib/meme-data.json'
@@ -336,20 +338,7 @@ function Home({ allSupplyChainTxns }) {
           </div>
         </main>
 
-        <footer className={ styles.footer }>
-          Made with 💙 by{ ' ' }
-          <a
-            href="https://giesgroups.illinois.edu/disruptionlab/affiliated-staff/"
-            target="_blank"
-            rel="no credit where credit is due"
-          >
-            <img
-              src="/uni-wordmark-full-color.svg"
-              alt="no credit where credit is due"
-              className={ styles.logo }
-            />
-          </a>
-        </footer>
+        <Footer />
       </div >
     </div>
   )

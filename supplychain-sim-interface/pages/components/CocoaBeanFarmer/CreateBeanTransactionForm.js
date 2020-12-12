@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 
 /**
@@ -8,15 +8,11 @@ import React, { useState } from 'react'
  */
 
 
-const CreateBeanTransaction = () => {
-  const [ beanTxnName, setBeanTxnName ] = useState()
-  const [ beanTxnDescription, setBeanTxnDescription ] = useState()
-  const [ beanTxnQuantityToSend, setBeanTxnQuantityToSend ] = useState()
-
-  
-  const handleCreateBeanTransaction = () => {
-
-  }
+const CreateBeanTransactionForm = memo(({
+  beanTxnName,
+  beanTxnDescription,
+  beanTxnQuantityToSend
+}) => {
 
 
   return (
@@ -67,6 +63,6 @@ const CreateBeanTransaction = () => {
       </div>
     </div>
   )
-}
+})
 
 export default CreateBeanTransactionForm

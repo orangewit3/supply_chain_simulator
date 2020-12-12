@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import deployManufacturer from '../../../lib/ethereum/web3/deploy/deployManufacturer'
-import { ManufacturerForm } from './ManufacturerForm'
+import { DeployManufacturerForm } from './DeployManufacturerForm'
 import { useEtherPrice } from '../../hooks/useEtherPrice'
 
 
@@ -51,7 +51,7 @@ const DeployManufacturer = () => {
 
   return (
     <div>
-      <ManufacturerForm
+      <DeployManufacturerForm
         setInitialBeanCount={ useSetInitialBeanCount }
         setEstimatedBeansToCoffeeRatio={ useSetEstimatedBeansToCoffeeRatio }
         setEstimatedBeanValueInWei={ useSetEstimatedBeanValueInWei }

@@ -1,8 +1,8 @@
 import { Modal } from '@material-ui/core'
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo } from 'react'
 
 
-export const ManufacturerForm = memo(({
+export const DeployManufacturerForm = memo(({
   initialBeanCount,
   estimatedBeansToCoffeeRatio,
   estimatedBeanValueInWei,
@@ -38,7 +38,7 @@ export const ManufacturerForm = memo(({
           />
           <label for="estimated-bean-value-in-wei" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">
             Estimated bean value in wei { ' ' }
-            <p>
+            <p class='inline'>
               <a class='hover:underline font-normal text-blue-400' href='https://www.coingecko.com/en/coins/ethereum' target='_blank'>
                 { `(Note: 10^18 WEI ➡️ 1 ETH and 1 ETH/1 USD = $${etherPrice})` }
               </a>

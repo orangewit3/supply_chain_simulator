@@ -1,5 +1,5 @@
 import { ethers, Contract } from 'ethers'
-import CocoaBeanFarmer from '../../../../build/contracts/CocoaBeanFarmer.json'
+import CocoaBeanFarmer from '../../../../../build/contracts/CocoaBeanFarmer.json'
 
 
 export default async function api() {

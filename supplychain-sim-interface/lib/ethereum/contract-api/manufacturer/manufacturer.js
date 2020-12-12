@@ -1,5 +1,5 @@
 import { ethers, Contract } from 'ethers'
-import Manufacturer from '../../../../build/contracts/Manufacturer.json'
+import Manufacturer from '../../../../../build/contracts/Manufacturer.json'
 
 export default async function api() {
   const walletlessProvider = new ethers.providers.InfuraProvider(

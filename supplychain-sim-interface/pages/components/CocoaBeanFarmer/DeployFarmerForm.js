@@ -1,8 +1,8 @@
 import { Modal } from '@material-ui/core'
-import React, { memo, useState } from 'react'
+import React, { memo } from 'react'
 
 
-export const FarmerForm = memo(({
+export const DeployFarmerForm = memo(({
   setInitialQuantity,
   setSupplyChainTransactionsAddress,
   handleDeploy

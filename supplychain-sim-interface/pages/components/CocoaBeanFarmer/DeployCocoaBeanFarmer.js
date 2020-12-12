@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import deployCocoaBeanFarmer from '../../../lib/ethereum/web3/deploy/deployCocoaBeanFarmer'
-import { FarmerForm } from './FarmerForm'
+import { DeployFarmerForm } from './DeployFarmerForm'
 
 
 const DeployCocoaBeanFarmer = () => {
@@ -23,7 +23,7 @@ const DeployCocoaBeanFarmer = () => {
 
   return (
     <div>
-      <FarmerForm
+      <DeployFarmerForm
         setInitialQuantity={ useSetIntitialQuantityCallback }
         setSupplyChainTransactionsAddress={ useSetSupplyChainTransactionsAddressCallback }
         handleDeploy={ useHandleDeploy }
