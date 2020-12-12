@@ -4,7 +4,7 @@ import { FarmerForm } from './FarmerForm'
 
 
 const DeployCocoaBeanFarmer = () => {
-  const [ initialQuantity, setInitialQuantity ] = useState(null)
+  const [ initialQuantity, setInitialQuantity ] = useState(0)
   const [ supplyChainTransactionsAddress, setSupplyChainTransactionsAddress ] = useState(null)
 
   const useHandleDeploy = useCallback(async (e) => {

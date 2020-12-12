@@ -54,7 +54,7 @@ export const ManufacturerForm = memo(({
             onChange={ estimatedBeanValueInWei }
           />
           <label for="supply-chain-transactions-address" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">Contract address of SupplyChainTransactions</label>
-          < input
+          <input
             id="supply-chain-transactions-address"
             type="text"
             name="supply-chain-transactions-address"
@@ -70,7 +70,7 @@ export const ManufacturerForm = memo(({
               onClick={ handleDeploy }
             >
               Deploy Manufacturer
-          </button>
+            </button>
           </div>
         </form>
       </div>

@@ -5,12 +5,12 @@ import { useEtherPrice } from '../../hooks/useEtherPrice'
 
 
 const DeployManufacturer = () => {
-  const [ initialBeanCount, setInitialBeanCount ] = useState(null)
-  const [ estimatedBeansToCoffeeRatio, setEstimatedBeansToCoffeeRatio ] = useState(null)
-  const [ estimatedBeanValueInWei, setEstimatedBeanValueInWei ] = useState(null)
+  const [ initialBeanCount, setInitialBeanCount ] = useState(0)
+  const [ estimatedBeansToCoffeeRatio, setEstimatedBeansToCoffeeRatio ] = useState(0)
+  const [ estimatedBeanValueInWei, setEstimatedBeanValueInWei ] = useState(0)
   const [ supplyChainTransactionsAddress, setSupplyChainTransactionsAddress ] = useState(null)
   const etherPrice = useEtherPrice()
-  
+
 
   const useHandleDeploy = useCallback(async (e) => {
     e.preventDefault()
@@ -20,6 +20,12 @@ const DeployManufacturer = () => {
       estimatedBeanValueInWei,
       supplyChainTransactionsAddress
     )
+    // console.log(
+    //   initialBeanCount,
+    //   estimatedBeansToCoffeeRatio,
+    //   estimatedBeanValueInWei,
+    //   supplyChainTransactionsAddress
+    // )
   }, [
     initialBeanCount,
     estimatedBeansToCoffeeRatio,

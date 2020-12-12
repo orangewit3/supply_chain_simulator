@@ -36,6 +36,7 @@ export default async function deployManufacturer(
       supplyChainTransactionsAddress
     )
 
+
     const receipt = await contract.deployTransaction.wait()
     console.log(
       '\n Transaction receipt: ',
