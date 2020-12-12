@@ -48,10 +48,10 @@ export const ManufacturerForm = memo(({
             id="estimated-bean-value-in-wei"
             type="number"
             name="estimated-bean-value-in-wei"
-            placeholder={`100000000000000 wei = 0.0001 ETH = $${(etherPrice/10000).toFixed(5)}`}
+            placeholder={ `100000000000000 wei = 0.0001 ETH = $${(etherPrice / 10000).toFixed(5)}` }
             class="block w-full p-3 mt-2 rounded-3xl text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
             required
-            onChange={ initialBeanCount }
+            onChange={ estimatedBeanValueInWei }
           />
           <label for="supply-chain-transactions-address" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">Contract address of SupplyChainTransactions</label>
           < input
@@ -69,7 +69,7 @@ export const ManufacturerForm = memo(({
               class="w-3/4 py-3 mt-6 rounded-3xl  font-normal shadow-lg hover:bg-gray-200 hover:shadow-none"
               onClick={ handleDeploy }
             >
-              Deploy CocoaBeanFarmer
+              Deploy Manufacturer
           </button>
           </div>
         </form>
