@@ -9,24 +9,8 @@ const DeployManufacturer = () => {
   const [ estimatedBeansToCoffeeRatio, setEstimatedBeansToCoffeeRatio ] = useState(null)
   const [ estimatedBeanValueInWei, setEstimatedBeanValueInWei ] = useState(null)
   const [ supplyChainTransactionsAddress, setSupplyChainTransactionsAddress ] = useState(null)
-
-
-  /**
-   * @dev 
-   * @todo
-   * If we try to get either of the two values, `usd` or `last_updated_at`
-   * from the etherObject, we an error is thrown:
-   *  `TypeError: Cannot read property 'usd' of undefined`
-   * 
-   * Also, need to figure out why the next 3 lines are being called 3 times (
-   * and on the 3rd time, we get the object we want, but every other time, the 
-   * response returns `undefined)
-   */
-  const object = useEtherPrice()
-  const etherObject = object.ethereum
-  console.log(etherObject)
-
-
+  const etherPrice = useEtherPrice()
+  
 
   const useHandleDeploy = useCallback(async (e) => {
     e.preventDefault()
@@ -66,7 +50,7 @@ const DeployManufacturer = () => {
         setEstimatedBeansToCoffeeRatio={ useSetEstimatedBeansToCoffeeRatio }
         setEstimatedBeanValueInWei={ useSetEstimatedBeanValueInWei }
         setSupplyChainTransactionsAddress={ useSetSupplyChainTransactionsAddressCallback }
-        etherPrice={ etherObject }
+        etherPrice={ etherPrice }
         handleDeploy={ useHandleDeploy }
       />
     </div>

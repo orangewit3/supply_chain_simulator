@@ -11,7 +11,7 @@ export const useEtherPrice = () => {
       setLoadingPrice(true)
       const res = await fetch('api/getEtherPrice')
       const json = await res.json()
-      setEtherPrice(json)
+      setEtherPrice(json.ethereum.usd)
     } catch (error) {
       setPriceError(error)
     } finally {
@@ -25,5 +25,5 @@ export const useEtherPrice = () => {
 
   if (priceError) return "Error in retrieving current price from CoinGecko"
 
-  return loadingPrice ? "Loading ETH price..." : etherPrice
+  return loadingPrice ? "Loading ETH price...." : etherPrice
 }
