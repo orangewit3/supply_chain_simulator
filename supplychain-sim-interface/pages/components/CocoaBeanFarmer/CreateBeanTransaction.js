@@ -13,7 +13,7 @@ const CreateBeanTransaction = () => {
   const [ beanTxnDescription, setBeanTxnDescription ] = useState()
   const [ beanTxnQuantityToSend, setBeanTxnQuantityToSend ] = useState()
 
-  
+
   const handleCreateBeanTransaction = () => {
 
   }
@@ -69,4 +69,4 @@ const CreateBeanTransaction = () => {
   )
 }
 
-export default CreateBeanTransactionForm
+export default CreateBeanTransaction

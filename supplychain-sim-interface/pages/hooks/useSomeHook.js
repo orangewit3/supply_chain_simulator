@@ -1,3 +1,6 @@
+/**
+ * @dev Example hook that uses `useRef()`
+ */
 import { useRef } from 'react'
 
 export const useSomeHook = () => {
