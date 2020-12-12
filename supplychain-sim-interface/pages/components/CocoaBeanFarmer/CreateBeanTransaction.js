@@ -14,6 +14,10 @@ const CreateBeanTransactionForm = () => {
   const [ beanTxnDescription, setBeanTxnDescription ] = useState()
   const [ beanTxnQuantityToSend, setBeanTxnQuantityToSend ] = useState()
 
+  const handleCreateBeanTransaction = () => {
+
+  }
+
 
   return (
     <div class="grid max-h-screen place-items-center">

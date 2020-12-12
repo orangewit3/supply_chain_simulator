@@ -2,17 +2,14 @@ const coinGeckoRequestUrl = "https://api.coingecko.com/api/v3/simple/price?ids=e
 
 
 export default async function getEtherPrice(req, res) {
-  const etherPrice = await fetch(coinGeckoRequestUrl)
-    .then(res => res.json())
-    .then(json => {
-      return json
-    })
+  const resp = await fetch(coinGeckoRequestUrl)
+  const json = await resp.json()
 
-  if (!etherPrice) {
+  if (!json) {
     return res.status(200).send(
       "Error in getting ETH price from CoinGecko"
     )
   }
 
-  res.status(200).send(etherPrice)
+  res.status(200).send(json)
 }

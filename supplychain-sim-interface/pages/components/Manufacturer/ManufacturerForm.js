@@ -1,30 +1,15 @@
 import { Modal } from '@material-ui/core'
 import React, { memo, useEffect, useState } from 'react'
 
-function useEtherPrice() {
-  const [ etherPrice, setEtherPrice ] = useState([])
-
-  useEffect(() => {
-    fetch('api/getEtherPrice')
-      .then(res => res.json())
-      .then(json => {
-        setEtherPrice(json)
-      })
-  }, [])
-
-  return etherPrice
-}
-
 
 export const ManufacturerForm = memo(({
   initialBeanCount,
   estimatedBeansToCoffeeRatio,
   estimatedBeanValueInWei,
   setSupplyChainTransactionsAddress,
+  etherPrice,
   handleDeploy
 }) => {
-
-  const etherPrice = useEtherPrice()
 
   return (
     <div class="grid max-h-screen place-items-center">
@@ -51,12 +36,19 @@ export const ManufacturerForm = memo(({
             required
             onChange={ estimatedBeansToCoffeeRatio }
           />
-          <label for="estimated-bean-value-in-wei" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">Estimated bean value in wei ({ `10^18 WEI = 1 ETH = $${etherPrice.ethereum.usd}` })</label>
+          <label for="estimated-bean-value-in-wei" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">
+            Estimated bean value in wei { ' ' }
+            <p>
+              <a class='hover:underline font-normal text-blue-400' href='https://www.coingecko.com/en/coins/ethereum' target='_blank'>
+                { `(Note: WEI/ETH ➡️ 10^18 WEI/1 ETH and 1 ETH/USD = $${etherPrice})` }
+              </a>
+            </p>
+          </label>
           <input
             id="estimated-bean-value-in-wei"
             type="number"
             name="estimated-bean-value-in-wei"
-            placeholder="100000000000000"
+            placeholder="100000000000000 wei = 0.0001 ETH"
             class="block w-full p-3 mt-2 rounded-3xl text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
             required
             onChange={ initialBeanCount }
