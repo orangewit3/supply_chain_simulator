@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import CreateBeanTransactionForm from './CreateBeanTransactionForm'
-import { createBeanTransactionFunction } from '../../../lib/ethereum/contract-apis/cocoaBeanFarmer'
+import { createBeanTransaction } from '../../../lib/ethereum/contract-apis/cocoaBeanFarmer'
 
 /**
  * @dev 

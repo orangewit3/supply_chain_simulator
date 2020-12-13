@@ -13,7 +13,7 @@ import getErrorResponse from '../web3/general'
  * @param {Number} beanTxnQuantityToSend 
  * @returns {Event} RETURNS EVENT IN AN ETHEREUM BLOCK
  */
-export async function createBeanTransactionFunction(
+export async function createBeanTransaction(
   beanTxnName,
   beanTxnDescription,
   beanTxnQuantityToSend
@@ -25,6 +25,8 @@ export async function createBeanTransactionFunction(
 
     console.log('Checking approval...')
 
+    const signer = walletProvider.getSigner()
+
     // const walletlessProvider = new ethers.providers.InfuraProvider(
     //   'goerli',
     //   process.env.INFURA_ENDPOINT_KEY
@@ -33,7 +35,7 @@ export async function createBeanTransactionFunction(
       // This contract saved to environment variable after interacting with app
       process.env.COCOA_BEAN_FARMER_CONTRACT_ADDRESS,
       CocoaBeanFarmer.abi,
-      walletlessProvider
+      signer
     )
 
     const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
@@ -97,11 +99,13 @@ export async function sendBeanTransaction(
 
     console.log('Checking approval...')
 
+    const signer = walletProvider.getSigner()
+
     const cocoaBeanFarmer = new Contract(
       // This contract saved to environment variable after interacting with app
       process.env.COCOA_BEAN_FARMER_CONTRACT_ADDRESS,
       CocoaBeanFarmer.abi,
-      walletlessProvider
+      signer
     )
 
     const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
@@ -169,11 +173,13 @@ export async function addPendingTransaction(
 
     console.log('Checking approval...')
 
+    const signer = walletProvider.getSigner()
+
     const cocoaBeanFarmer = new Contract(
       // This contract saved to environment variable after interacting with app
       process.env.COCOA_BEAN_FARMER_CONTRACT_ADDRESS,
       CocoaBeanFarmer.abi,
-      walletlessProvider
+      signer
     )
 
     const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
@@ -235,6 +241,8 @@ export async function getTransactionRejectedMsg(transactionID) {
     })
 
     console.log('Checking approval...')
+
+    const signer = walletProvider.getSigner()
 
     const cocoaBeanFarmer = new Contract(
       // This contract saved to environment variable after interacting with app
@@ -300,6 +308,8 @@ export async function isTransactionAccepted(transactionID) {
     })
 
     console.log('Checking approval...')
+
+    const signer = walletProvider.getSigner()
 
     const cocoaBeanFarmer = new Contract(
       // This contract saved to environment variable after interacting with app
@@ -367,11 +377,13 @@ export async function isTransactionRejected(transactionID) {
 
     console.log('Checking approval...')
 
+    const signer = walletProvider.getSigner()
+
     const cocoaBeanFarmer = new Contract(
       // This contract saved to environment variable after interacting with app
       process.env.COCOA_BEAN_FARMER_CONTRACT_ADDRESS,
       CocoaBeanFarmer.abi,
-      walletlessProvider
+      signer
     )
 
     const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
@@ -430,11 +442,13 @@ export async function reclaimRejectedBeans(transactionID) {
 
     console.log('Checking approval...')
 
+    const signer = walletProvider.getSigner()
+
     const cocoaBeanFarmer = new Contract(
       // This contract saved to environment variable after interacting with app
       process.env.COCOA_BEAN_FARMER_CONTRACT_ADDRESS,
       CocoaBeanFarmer.abi,
-      walletlessProvider
+      signer
     )
 
     const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
@@ -497,11 +511,13 @@ export async function beanBalance(transactionID) {
 
     console.log('Checking approval...')
 
+    const signer = walletProvider.getSigner()
+
     const cocoaBeanFarmer = new Contract(
       // This contract saved to environment variable after interacting with app
       process.env.COCOA_BEAN_FARMER_CONTRACT_ADDRESS,
       CocoaBeanFarmer.abi,
-      walletlessProvider
+      signer
     )
 
     const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
@@ -565,11 +581,13 @@ export async function etherBalance() {
 
     console.log('Checking approval...')
 
+    const signer = walletProvider.getSigner()
+
     const cocoaBeanFarmer = new Contract(
       // This contract saved to environment variable after interacting with app
       process.env.COCOA_BEAN_FARMER_CONTRACT_ADDRESS,
       CocoaBeanFarmer.abi,
-      walletlessProvider
+      signer
     )
 
     const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
