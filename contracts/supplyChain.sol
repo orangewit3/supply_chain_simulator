@@ -223,7 +223,7 @@ contract CocoaBeanFarmer is SupplyChainNode {
     }
     
     
-    event BeanTransaction(
+    event NewBeanTransaction(
         uint indexed _id,
         string indexed _name,
         string _description,
@@ -252,7 +252,7 @@ contract CocoaBeanFarmer is SupplyChainNode {
          * to update the front-end in real-time, according to the data in the
          * emitted event.
          */
-        emit BeanTransaction(transactionID, name, description, quantityToSend);
+        emit NewBeanTransaction(transactionID, name, description, quantityToSend);
         
         return true;
     }

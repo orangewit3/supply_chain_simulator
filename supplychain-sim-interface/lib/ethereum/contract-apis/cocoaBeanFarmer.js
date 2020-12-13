@@ -51,10 +51,8 @@ export const createBeanTransaction = async (
 
     console.log(`\n Txn hash for creating new bean transaction: ${txn.hash}`)
 
-    const receipt = await createBeanTransaction.on(
-      ethers.providers.WebSocketProvider(),
-      ethers.providers
-    )
+    // The operation is NOT complete yet; we must wait until it is mined
+    await txn.wait()
 
     console.log(
       '\n Transaction receipt: ',
