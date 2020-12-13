@@ -16,7 +16,8 @@ import getErrorResponse from '../web3/general'
 export const createBeanTransaction = async (
   beanTxnName,
   beanTxnDescription,
-  beanTxnQuantityToSend
+  beanTxnQuantityToSend,
+  CocoaBeanFarmerContractAddress,
 ) => {
   try {
     const { walletAddress, error, walletProvider } = await unlockBrowser({
@@ -33,8 +34,8 @@ export const createBeanTransaction = async (
     // )
 
     const cocoaBeanFarmer = new Contract(
-      // This contract saved to environment variable after interacting with app
-      "0xc61420ab59fb2a65Da8649AF5081d26ac3c837af",
+      // This CCBF contract saved to environment variable after interacting with app
+      CocoaBeanFarmerContractAddress,
       CocoaBeanFarmer.abi,
       signer
     )
@@ -52,8 +53,12 @@ export const createBeanTransaction = async (
     console.log(`\n Txn hash for creating new bean transaction: ${txn.hash}`)
 
     // The operation is NOT complete yet; we must wait until it is mined
+    console.log(`\n Waiting for txn to be mined...`)
     await txn.wait()
 
+    console.log(`\n Txn has been mined!`)
+
+    console.log(`\n Listening for event to be emitted in an Ethereum block...`)
     // Listening to event
     cocoaBeanFarmer.on("NewBeanTransaction", (
       txnId,
@@ -62,32 +67,37 @@ export const createBeanTransaction = async (
       txnQuantityToSend,
       event
     ) => {
-      console.log(txnId, txnName, txnDescription, txnQuantityToSend)
+      console.log(`Txn ID: ${txnId}`)
+      console.log(`Txn name: ${txnName}`)
+      console.log(`Txn name: ${txnName}`)
+      console.log(`Txn description: ${txnDescription}`)
+      console.log(`Txn quantity to send: ${txnQuantityToSend}`)
+      console.log(`Event block number: ${event.blockNumber}`)
     })
 
-    console.log(
-      '\n Transaction receipt: ',
-      '\n \ \ blockHash: ',
-      receipt.blockHash,
-      '\n \ \ blockNumber: ',
-      receipt.blockNumber,
-      '\n \ \ confirmations: ',
-      receipt.confirmations,
-      '\n \ \ contractAddress: ',
-      receipt.contractAddress,
-      '\n \ \ cumulativeGasUsed: ',
-      receipt.cumulativeGasUsed,
-      '\n \ \ from: ',
-      receipt.from,
-      '\n \ \ gasUsed: ',
-      receipt.gasUsed,
-      '\n \ \ logs: ',
-      receipt.logs,
-      '\n \ \ transactionHash: ',
-      receipt.transactionHash,
-      '\n \ \ transactionIndex: ',
-      receipt.transactionIndex,
-    )
+    // console.log(
+    //   '\n Transaction receipt: ',
+    //   '\n \ \ blockHash: ',
+    //   receipt.blockHash,
+    //   '\n \ \ blockNumber: ',
+    //   receipt.blockNumber,
+    //   '\n \ \ confirmations: ',
+    //   receipt.confirmations,
+    //   '\n \ \ contractAddress: ',
+    //   receipt.contractAddress,
+    //   '\n \ \ cumulativeGasUsed: ',
+    //   receipt.cumulativeGasUsed,
+    //   '\n \ \ from: ',
+    //   receipt.from,
+    //   '\n \ \ gasUsed: ',
+    //   receipt.gasUsed,
+    //   '\n \ \ logs: ',
+    //   receipt.logs,
+    //   '\n \ \ transactionHash: ',
+    //   receipt.transactionHash,
+    //   '\n \ \ transactionIndex: ',
+    //   receipt.transactionIndex,
+    // )
 
     if (receipt.status === 0) return { error: receipt }
     return {

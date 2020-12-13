@@ -10,6 +10,7 @@ const CreateBeanTransactionForm = memo(({
   setBeanTxnName,
   setBeanTxnDescription,
   setBeanTxnQuantityToSend,
+  setCocoaBeanFarmerContractAddress,
   handleCreateBeanTransaction
 }) => {
 
@@ -48,6 +49,16 @@ const CreateBeanTransactionForm = memo(({
             class="block w-full p-3 mt-2 rounded-3xl text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
             required
             onChange={ setBeanTxnQuantityToSend }
+          />
+          <label for="cocoa-bean-farmer-address" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">Contract address of CocoaBeanFarmer</label>
+          <input
+            id="cocoa-bean-farmer-address"
+            type="text"
+            name="cocoa-bean-farmer-address"
+            placeholder="0x19f5807b745CAC676230486C4ed..."
+            class="block w-full p-3 mt-2 rounded-3xl text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
+            required
+            onChange={ setCocoaBeanFarmerContractAddress }
           />
           <div class='grid place-items-center'>
             <button

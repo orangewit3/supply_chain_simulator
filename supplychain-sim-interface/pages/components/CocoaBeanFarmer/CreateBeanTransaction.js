@@ -11,6 +11,7 @@ const CreateBeanTransaction = () => {
   const [ beanTxnName, setBeanTxnName ] = useState(null)
   const [ beanTxnDescription, setBeanTxnDescription ] = useState(null)
   const [ beanTxnQuantityToSend, setBeanTxnQuantityToSend ] = useState(0)
+  const [ cocoaBeanFarmerContractAddress, setCocoaBeanFarmerContractAddress] = useState(null)
 
 
   const useSetBeanTxnNameCallback = useCallback((e) => {
@@ -24,18 +25,24 @@ const CreateBeanTransaction = () => {
   const useSetBeanTxnQuantityToSendCallback = useCallback((e) => {
     setBeanTxnQuantityToSend(e.currentTarget.value)
   }, [ setBeanTxnQuantityToSend ])
+  
+  const useSetCocoaBeanFarmerContractAddressCallback = useCallback((e) => {
+    setCocoaBeanFarmerContractAddress(e.currentTarget.value)
+  }, [ setCocoaBeanFarmerContractAddress ])
 
   const useHandleCreateBeanTransactionCallback = useCallback(async (e) => {
     e.preventDefault()
     createBeanTransaction(
       beanTxnName,
       beanTxnDescription,
-      beanTxnQuantityToSend
+      beanTxnQuantityToSend,
+      cocoaBeanFarmerContractAddress
     )
   }, [
     beanTxnName,
     beanTxnDescription,
-    beanTxnQuantityToSend
+    beanTxnQuantityToSend,
+    cocoaBeanFarmerContractAddress
   ])
 
 
@@ -45,6 +52,7 @@ const CreateBeanTransaction = () => {
         setBeanTxnName={ useSetBeanTxnNameCallback }
         setBeanTxnDescription={ useSetBeanTxnDescriptionCallback }
         setBeanTxnQuantityToSend={ useSetBeanTxnQuantityToSendCallback }
+        setCocoaBeanFarmerContractAddress={ useSetCocoaBeanFarmerContractAddressCallback }
         handleCreateBeanTransaction={ useHandleCreateBeanTransactionCallback }
       />
     </div>
