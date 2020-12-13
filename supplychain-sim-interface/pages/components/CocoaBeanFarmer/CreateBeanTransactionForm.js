@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 
 /**
@@ -6,12 +6,11 @@ import React from 'react'
  * @todo
  * Finish this component and render event log data on client table
  */
-
-
 const CreateBeanTransactionForm = memo(({
-  beanTxnName,
-  beanTxnDescription,
-  beanTxnQuantityToSend
+  setBeanTxnName,
+  setBeanTxnDescription,
+  setBeanTxnQuantityToSend,
+  handleCreateBeanTransaction
 }) => {
 
 
@@ -28,7 +27,7 @@ const CreateBeanTransactionForm = memo(({
             placeholder="txn101"
             class="block w-full p-3 mt-2 rounded-3xl text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
             required
-            onChange={ (e) => setBeanTxnName(e.currentTarget.value) }
+            onChange={ setBeanTxnName }
           />
           <label for="txn-description" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">Txn description</label>
           <input
@@ -38,7 +37,7 @@ const CreateBeanTransactionForm = memo(({
             placeholder="first bean transaction"
             class="block w-full p-3 mt-2 rounded-3xl text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
             required
-            onChange={ (e) => setBeanTxnDescription(e.currentTarget.value) }
+            onChange={ setBeanTxnDescription }
           />
           <label for="quantity-to-send" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">Quantity to send</label>
           <input
@@ -48,7 +47,7 @@ const CreateBeanTransactionForm = memo(({
             placeholder="10"
             class="block w-full p-3 mt-2 rounded-3xl text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
             required
-            onChange={ (e) => setBeanTxnQuantityToSend(e.currentTarget.value) }
+            onChange={ setBeanTxnQuantityToSend }
           />
           <div class='grid place-items-center'>
             <button

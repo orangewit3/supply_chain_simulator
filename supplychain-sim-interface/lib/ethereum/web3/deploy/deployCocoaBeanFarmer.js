@@ -15,10 +15,11 @@ export default async function deployCocoaBeanFarmer(
     })
 
     const signer = walletProvider.getSigner()
+    const signerAddress = await signer.getAddress()
 
     console.log(
       '\n Attempting to deploy CocoaBeanFarmer contract from: ',
-      signer.getAddress().then(address => console.log(address))
+      signerAddress
     )
 
     const factory = new ContractFactory(

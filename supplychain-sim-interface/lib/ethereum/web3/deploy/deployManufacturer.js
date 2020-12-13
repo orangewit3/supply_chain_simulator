@@ -17,10 +17,11 @@ export default async function deployManufacturer(
     })
 
     const signer = walletProvider.getSigner()
+    const signerAddress = await signer.getAddress()
 
     console.log(
       '\n Attempting to deploy Manufacturer contract from: ',
-      signer.getAddress().then(address => console.log(address))
+      signerAddress
     )
 
     const factory = new ContractFactory(
