@@ -13,11 +13,11 @@ import getErrorResponse from '../web3/general'
  * @param {Number} beanTxnQuantityToSend 
  * @returns {Event} RETURNS EVENT IN AN ETHEREUM BLOCK
  */
-export async function createBeanTransaction(
+export async function createBeanTransaction({
   beanTxnName,
   beanTxnDescription,
   beanTxnQuantityToSend
-) {
+}) {
   try {
     const { walletAddress, error, walletProvider } = await unlockBrowser({
       debug: true,
@@ -33,7 +33,7 @@ export async function createBeanTransaction(
     // )
     const cocoaBeanFarmer = new Contract(
       // This contract saved to environment variable after interacting with app
-      process.env.COCOA_BEAN_FARMER_CONTRACT_ADDRESS,
+      "0xc61420ab59fb2a65Da8649AF5081d26ac3c837af",
       CocoaBeanFarmer.abi,
       signer
     )
@@ -88,10 +88,10 @@ export async function createBeanTransaction(
 
 
 
-export async function sendBeanTransaction(
+export async function sendBeanTransaction({
   transactionID,
   recipient
-) {
+}) {
   try {
     const { walletAddress, error, walletProvider } = await unlockBrowser({
       debug: true,
@@ -162,10 +162,10 @@ export async function sendBeanTransaction(
  * @param {Number} action 
  * @return {Event} ?? maybe ??
  */
-export async function addPendingTransaction(
+export async function addPendingTransaction({
   transactionID,
   action
-) {
+}) {
   try {
     const { walletAddress, error, walletProvider } = await unlockBrowser({
       debug: true,
@@ -234,7 +234,7 @@ export async function addPendingTransaction(
  * @param {Number} transactionID 
  * @returns {}
  */
-export async function getTransactionRejectedMsg(transactionID) {
+export async function getTransactionRejectedMsg({ transactionID }) {
   try {
     const { walletAddress, error, walletProvider } = await unlockBrowser({
       debug: true,
@@ -301,7 +301,7 @@ export async function getTransactionRejectedMsg(transactionID) {
 /**
  * @param {Number} transactionID 
  */
-export async function isTransactionAccepted(transactionID) {
+export async function isTransactionAccepted({ transactionID }) {
   try {
     const { walletAddress, error, walletProvider } = await unlockBrowser({
       debug: true,
@@ -369,7 +369,7 @@ export async function isTransactionAccepted(transactionID) {
 /**
  * @param {Number} transactionID 
  */
-export async function isTransactionRejected(transactionID) {
+export async function isTransactionRejected({ transactionID }) {
   try {
     const { walletAddress, error, walletProvider } = await unlockBrowser({
       debug: true,
@@ -434,7 +434,7 @@ export async function isTransactionRejected(transactionID) {
 
 
 
-export async function reclaimRejectedBeans(transactionID) {
+export async function reclaimRejectedBeans({ transactionID }) {
   try {
     const { walletAddress, error, walletProvider } = await unlockBrowser({
       debug: true,
@@ -503,7 +503,7 @@ export async function reclaimRejectedBeans(transactionID) {
 /**
  * @param {Number} transactionID 
  */
-export async function beanBalance(transactionID) {
+export async function beanBalance({ transactionID }) {
   try {
     const { walletAddress, error, walletProvider } = await unlockBrowser({
       debug: true,
