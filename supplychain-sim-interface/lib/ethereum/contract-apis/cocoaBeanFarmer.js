@@ -23,9 +23,14 @@ export async function createBeanTransaction({
       debug: true,
     })
 
+    // console.log(walletAddress)
+    // console.log(error)
+    // console.log(walletProvider)
+
     console.log('Checking approval...')
 
     const signer = walletProvider.getSigner()
+    // console.log(signer)
 
     // const walletlessProvider = new ethers.providers.InfuraProvider(
     //   'goerli',
@@ -37,16 +42,20 @@ export async function createBeanTransaction({
       CocoaBeanFarmer.abi,
       signer
     )
+    console.log(cocoaBeanFarmer)
 
-    const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
+    const { address } = cocoaBeanFarmer
+    console.log(address)
 
-    console.log(`\n CocoaBeanFarmer at ${cocoaBeanFarmerAddress} attempting to create a new bean transaction...`)
+    console.log(`\n CocoaBeanFarmer at ${address} attempting to create a new bean transaction...`)
 
     const createBeanTransaction = await cocoaBeanFarmer.createBeanTransaction(
       beanTxnName,
       beanTxnDescription,
       beanTxnQuantityToSend
     )
+
+    // console.log(cocoaBeanFarmer.etherBalance)
 
     const receipt = await createBeanTransaction.deployTransaction().wait()
     console.log(
@@ -108,9 +117,9 @@ export async function sendBeanTransaction({
       signer
     )
 
-    const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
+    const { address } = cocoaBeanFarmer
 
-    console.log(`\n CocoaBeanFarmer at ${cocoaBeanFarmerAddress} attempting to send bean transaction ${transactionID} to ${recipient}`)
+    console.log(`\n CocoaBeanFarmer at ${address} attempting to send bean transaction ${transactionID} to ${recipient}`)
 
     const sendBeanTransaction = await cocoaBeanFarmer.sendBeanTransaction(
       transactionID,
@@ -145,7 +154,7 @@ export async function sendBeanTransaction({
     if (receipt.status === 0) return { error: receipt }
     return {
       receipt: receipt,
-      contractAddress: cocoaBeanFarmerAddress,
+      contractAddress: address,
       ownerWalletAddress: walletAddress
     }
   } catch (err) {
@@ -182,9 +191,9 @@ export async function addPendingTransaction({
       signer
     )
 
-    const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
+    const { address } = cocoaBeanFarmer
 
-    console.log(`\n CocoaBeanFarmer at ${cocoaBeanFarmerAddress} attempting to add pending transaction: ${transactionID}`)
+    console.log(`\n CocoaBeanFarmer at ${address} attempting to add pending transaction: ${transactionID}`)
 
     const addPendingTransaction = await cocoaBeanFarmer.addPendingTransaction(
       transactionID,
@@ -219,7 +228,7 @@ export async function addPendingTransaction({
     if (receipt.status === 0) return { error: receipt }
     return {
       receipt: receipt,
-      contractAddress: cocoaBeanFarmerAddress,
+      contractAddress: address,
       ownerWalletAddress: walletAddress
     }
   } catch (err) {
@@ -251,9 +260,9 @@ export async function getTransactionRejectedMsg({ transactionID }) {
       walletlessProvider
     )
 
-    const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
+    const { address } = cocoaBeanFarmer
 
-    console.log(`\n CocoaBeanFarmer at ${cocoaBeanFarmerAddress} attempting to get rejected transaction message: ${transactionID}`)
+    console.log(`\n CocoaBeanFarmer at ${address} attempting to get rejected transaction message: ${transactionID}`)
 
     const getTransactionRejectedMsg = await cocoaBeanFarmer.addPendingTransaction(
       transactionID
@@ -287,7 +296,7 @@ export async function getTransactionRejectedMsg({ transactionID }) {
     if (receipt.status === 0) return { error: receipt }
     return {
       receipt: receipt,
-      contractAddress: cocoaBeanFarmerAddress,
+      contractAddress: address,
       ownerWalletAddress: walletAddress
     }
   } catch (err) {
@@ -318,9 +327,9 @@ export async function isTransactionAccepted({ transactionID }) {
       walletlessProvider
     )
 
-    const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
+    const { address } = cocoaBeanFarmer
 
-    console.log(`\n CocoaBeanFarmer at ${cocoaBeanFarmerAddress} attempting to check if transaction ${transactionID} is accepted.`)
+    console.log(`\n CocoaBeanFarmer at ${address} attempting to check if transaction ${transactionID} is accepted.`)
 
     const isTransactionAccepted = await cocoaBeanFarmer.isTransactionAccepted(
       transactionID
@@ -354,7 +363,7 @@ export async function isTransactionAccepted({ transactionID }) {
     if (receipt.status === 0) return { error: receipt }
     return {
       receipt: receipt,
-      contractAddress: cocoaBeanFarmerAddress,
+      contractAddress: address,
       ownerWalletAddress: walletAddress
     }
   } catch (err) {
@@ -386,9 +395,9 @@ export async function isTransactionRejected({ transactionID }) {
       signer
     )
 
-    const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
+    const { address } = cocoaBeanFarmer
 
-    console.log(`\n CocoaBeanFarmer at ${cocoaBeanFarmerAddress} attempting to check if transaction ${transactionID} is rejected.`)
+    console.log(`\n CocoaBeanFarmer at ${address} attempting to check if transaction ${transactionID} is rejected.`)
 
     const isTransactionRejected = await cocoaBeanFarmer.isTransactionRejected(
       transactionID
@@ -422,7 +431,7 @@ export async function isTransactionRejected({ transactionID }) {
     if (receipt.status === 0) return { error: receipt }
     return {
       receipt: receipt,
-      contractAddress: cocoaBeanFarmerAddress,
+      contractAddress: address,
       ownerWalletAddress: walletAddress
     }
   } catch (err) {
@@ -451,9 +460,9 @@ export async function reclaimRejectedBeans({ transactionID }) {
       signer
     )
 
-    const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
+    const { address } = cocoaBeanFarmer
 
-    console.log(`\n CocoaBeanFarmer at ${cocoaBeanFarmerAddress} attempting to reclaim beans of rejected transaction: ${transactionID}`)
+    console.log(`\n CocoaBeanFarmer at ${address} attempting to reclaim beans of rejected transaction: ${transactionID}`)
 
     const reclaimRejectedBeans = await cocoaBeanFarmer.reclaimRejectedBeans(
       transactionID
@@ -487,7 +496,7 @@ export async function reclaimRejectedBeans({ transactionID }) {
     if (receipt.status === 0) return { error: receipt }
     return {
       receipt: receipt,
-      contractAddress: cocoaBeanFarmerAddress,
+      contractAddress: address,
       ownerWalletAddress: walletAddress
     }
   } catch (err) {
@@ -520,9 +529,9 @@ export async function beanBalance({ transactionID }) {
       signer
     )
 
-    const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
+    const { address } = cocoaBeanFarmer
 
-    console.log(`\n Attempting to get bean balance of CocoaBeanFarmer at ${cocoaBeanFarmerAddress}`)
+    console.log(`\n Attempting to get bean balance of CocoaBeanFarmer at ${address}`)
 
     const beanBalance = await cocoaBeanFarmer.beanBalance(
       transactionID
@@ -561,7 +570,7 @@ export async function beanBalance({ transactionID }) {
     if (receipt.status === 0) return { error: receipt }
     return {
       receipt: receipt,
-      contractAddress: cocoaBeanFarmerAddress,
+      contractAddress: address,
       ownerWalletAddress: walletAddress
     }
   } catch (err) {
@@ -590,9 +599,9 @@ export async function etherBalance() {
       signer
     )
 
-    const cocoaBeanFarmerAddress = await cocoaBeanFarmer.address()
+    const { address } = cocoaBeanFarmer
 
-    console.log(`\n Attempting to get ether balance of CocoaBeanFarmer at ${cocoaBeanFarmerAddress}`)
+    console.log(`\n Attempting to get ether balance of CocoaBeanFarmer at ${address}`)
 
     const etherBalance = await cocoaBeanFarmer.etherBalance(
       transactionID
@@ -631,7 +640,7 @@ export async function etherBalance() {
     if (receipt.status === 0) return { error: receipt }
     return {
       receipt: receipt,
-      contractAddress: cocoaBeanFarmerAddress,
+      contractAddress: address,
       ownerWalletAddress: walletAddress
     }
   } catch (err) {

@@ -64,12 +64,12 @@ export default async function deployManufacturer(
     )
     if (receipt.status === 0) return { error: receipt }
 
-    const { contractAddress } = contract
+    const { address } = contract
     console.log('\n Manufacturer contract deployed at: ', address)
 
     return {
       receipt: receipt,
-      contractAddress: contractAddress,
+      contractAddress: address,
       ownerWalletAddress: walletAddress
     }
   } catch (err) {
