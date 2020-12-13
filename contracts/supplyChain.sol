@@ -225,7 +225,7 @@ contract CocoaBeanFarmer is SupplyChainNode {
     
     event NewBeanTransaction(
         uint indexed _id,
-        string indexed _name,
+        string _name,
         string _description,
         uint _quantityToSend
     );
