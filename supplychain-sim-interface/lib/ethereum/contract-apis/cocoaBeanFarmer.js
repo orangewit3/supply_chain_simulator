@@ -67,11 +67,12 @@ export const createBeanTransaction = async (
       txnQuantityToSend,
       event
     ) => {
-      console.log(`Txn ID: ${txnId}`)
-      console.log(`Txn name: ${txnName}`)
-      console.log(`Txn description: ${txnDescription}`)
-      console.log(`Txn quantity to send: ${txnQuantityToSend}`)
-      console.log(`Event block number: ${event.blockNumber}`)
+      console.log(`Here are the event values:`)
+      console.log(`id: ${txnId}`)
+      console.log(`name: ${txnName}`)
+      console.log(`description: ${txnDescription}`)
+      console.log(`quantity to send: ${txnQuantityToSend}`)
+      console.log(`Event emitted at block number ${event.blockNumber}`)
     })
 
     // console.log(
