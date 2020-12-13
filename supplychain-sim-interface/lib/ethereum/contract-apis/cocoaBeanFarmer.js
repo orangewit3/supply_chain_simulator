@@ -54,6 +54,17 @@ export const createBeanTransaction = async (
     // The operation is NOT complete yet; we must wait until it is mined
     await txn.wait()
 
+    // Listening to event
+    cocoaBeanFarmer.on("NewBeanTransaction", (
+      txnId,
+      txnName,
+      txnDescription,
+      txnQuantityToSend,
+      event
+    ) => {
+      console.log(txnId, txnName, txnDescription, txnQuantityToSend)
+    })
+
     console.log(
       '\n Transaction receipt: ',
       '\n \ \ blockHash: ',
