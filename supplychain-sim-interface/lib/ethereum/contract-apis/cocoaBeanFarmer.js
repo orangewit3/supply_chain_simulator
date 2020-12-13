@@ -43,16 +43,19 @@ export const createBeanTransaction = async (
 
     console.log(`\n CocoaBeanFarmer at ${address} attempting to create a new bean transaction...`)
 
-    const createBeanTransaction = await cocoaBeanFarmer.createBeanTransaction(
+    const txn = await cocoaBeanFarmer.createBeanTransaction(
       beanTxnName,
       beanTxnDescription,
       beanTxnQuantityToSend
     )
 
-    console.log(`\n Awaiting to return transaction receipt...`)
+    console.log(`\n Txn hash for creating new bean transaction: ${txn.hash}`)
 
+    const receipt = await createBeanTransaction.on(
+      ethers.providers.WebSocketProvider(),
+      ethers.providers
+    )
 
-    const receipt = await createBeanTransaction.deployTransaction().wait()
     console.log(
       '\n Transaction receipt: ',
       '\n \ \ blockHash: ',

@@ -27,7 +27,7 @@ const CreateBeanTransaction = () => {
 
   const useHandleCreateBeanTransactionCallback = useCallback(async (e) => {
     e.preventDefault()
-    await createBeanTransaction(
+    createBeanTransaction(
       beanTxnName,
       beanTxnDescription,
       beanTxnQuantityToSend

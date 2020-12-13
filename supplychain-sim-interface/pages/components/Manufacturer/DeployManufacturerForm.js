@@ -14,7 +14,7 @@ export const DeployManufacturerForm = memo(({
   return (
     <div class="grid max-h-screen place-items-center">
       <div class="w-11/12 p-10 bg-white sm:w-auto md:w-auto lg:w-auto">
-        <h1 class="text-xl font-semibold text-center">Deploy the Manufactuer contract</h1>
+        <h1 class="text-xl font-semibold text-center">Deploy Manufactuer contract</h1>
         <form class="mt-4">
           <label for="initial-bean-count" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">Initial bean count</label>
           <input

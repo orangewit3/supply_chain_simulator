@@ -17,7 +17,7 @@ const CreateBeanTransactionForm = memo(({
   return (
     <div class="grid max-h-screen place-items-center">
       <div class="w-11/12 p-10 bg-white sm:w-max md:w-auto lg:w-auto">
-        <h1 class="text-xl font-semibold text-center">Create the cocoa bean farmer's first transaction</h1>
+        <h1 class="text-xl font-semibold text-center">Create new bean transaction from cocoa bean farmer</h1>
         <form class="mt-4">
           <label for="txn-name" class="block ml-3 mt-2 text-xs font-semibold text-gray-600">Txn name</label>
           <input
