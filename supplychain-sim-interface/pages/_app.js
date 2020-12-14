@@ -1,12 +1,14 @@
 import 'tailwindcss/tailwind.css'
-import { Web3ReactProvider } from '@web3-react/core'
+import { useWeb3React, Web3ReactProvider } from '@web3-react/core'
 import { ethers } from 'ethers'
 
-function getLibrary(provider, connector) {
-  return new ethers.providers.InfuraProvider(
-    'goerli',
-    process.env.INFURA_ENDPOINT_KEY
-  )
+const POLLING_INTERVAL = 1200
+
+function getLibrary(provider) {
+  const library = new ethers.providers.Web3Provider(provider)
+  library.pollingInterval = POLLING_INTERVAL
+
+  return library
 }
 
 function App({ Component, pageProps }) {

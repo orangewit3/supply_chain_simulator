@@ -1,1 +1,7 @@
-export const NetworkContextName = 'NETWORK'
+export const NetworkContextName = "NETWORK"
+
+export const COCOA_BEAN_FARMER_ADDRESS = "0x3cA76FaE57BaABa353E950722C1470c8e4FB3dFf"
+
+export const MANUFACTURER_ADDRESS = "0x5051d754461b1ada59b6Af5A28ad420F4F0542D1"
+
+export const CARRIER_ADDRESS = ""

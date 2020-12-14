@@ -6,13 +6,12 @@ import Header from './components/Layouts/Header'
 import Footer from './components/Layouts/Footer'
 
 /** @dev Components */
-import ETHGasCard from './components/ETHGas/ETHGasCard'
-import CreateBeanTransaction from './components/CocoaBeanFarmer/CreateBeanTransaction'
-import showBeanEvent from './components/CocoaBeanFarmer/CreateBeanTransaction'
 import DeploySupplyChainTransactions from './components/SupplyChainTransactions/DeploySupplyChainTransactions'
 import DeployCocoaBeanFarmer from './components/CocoaBeanFarmer/DeployCocoaBeanFarmer'
 import DeployManufacturer from './components/Manufacturer/DeployManufacturer'
-import Manufacturer from './components/Manufacturer/DeployManufacturer'
+import ETHGasCard from './components/ETHGas/ETHGasCard'
+import CreateBeanTransaction from './components/CocoaBeanFarmer/CreateBeanTransaction'
+import BeanTransactions from './components/CocoaBeanFarmer/Events/BeanTransactions'
 
 /** @dev Sample data  */
 import memeData from '../lib/meme-data.json'
@@ -216,30 +215,13 @@ function Home({ allSupplyChainTxns }) {
           <h1 class='title-font mb-r text-4xl font-bold leading-15 tracking-tight'>Supply Chain Simulator</h1>
 
           <ETHGasCard />
+
           <DeploySupplyChainTransactions />
           <DeployCocoaBeanFarmer />
           <DeployManufacturer />
 
           <CreateBeanTransaction />
-
-          <div class='grid m-20 py-20'>
-            { showBeanEvent ? (
-              <p>
-                No transaction event data yet.
-              </p>
-            ) : (
-                <div>
-                  {
-                    console.log(
-                      contract.events.BeanTransaction({
-                        fromBlock: 0
-                      }).on('bean transaction data', event => console.log(event))
-                    )
-                  }
-                </div>
-              )
-            }
-          </div>
+          <BeanTransactions />
 
           <div className={ styles.grid }>
 

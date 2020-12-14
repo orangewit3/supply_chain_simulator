@@ -1,9 +1,12 @@
+import { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
-import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
-import { NetworkContextName } from '../constants'
+import {
+  useWeb3React
+} from '@web3-react/core'
+
 
 export function useActiveWeb3React() {
-  const context = useWeb3ReactCore()
-  const contextNetwork = useWeb3ReactCore(NetworkContextName)
-  return context.active ? context : contextNetwork
+  const context = useWeb3React()
+  // console.log(context)
+  return context
 }

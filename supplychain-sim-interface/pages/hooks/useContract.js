@@ -3,6 +3,7 @@ import { Contract } from 'ethers'
 import { abi as COCOA_BEAN_FARMER_ABI } from '../../../build/contracts/CocoaBeanFarmer.json'
 import { abi as MANUFACTURER_ABI } from '../../../build/contracts/Manufacturer.json'
 import { abi as CARRIER_ABI } from '../../../build/contracts/Carrier.json'
+import { COCOA_BEAN_FARMER_ADDRESS } from '../constants'
 
 import { useMemo } from 'react'
 
@@ -28,6 +29,6 @@ function useContract(address, ABI, withSignerIfPossible = true) {
   }, [ address, ABI, withSignerIfPossible, account ])
 }
 
-export function useCocoaBeanFarmerContract(address, withSignerIfPossible) {
-  return useContract(address, COCOA_BEAN_FARMER_ABI, withSignerIfPossible)
+export function useCocoaBeanFarmerContract() {
+  return useContract(COCOA_BEAN_FARMER_ADDRESS, COCOA_BEAN_FARMER_ABI, true)
 }
