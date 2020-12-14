@@ -10,7 +10,7 @@ module.exports = {
       //     enabled: false,
       //     runs: 10   // Optimize for how many times you intend to run the code
       //   },
-      //   evmVersion: "petersburg" // Default: "petersburg"
+      //   evmVersion: "petersburga // Default: "petersburg"
       // }
     }
   }

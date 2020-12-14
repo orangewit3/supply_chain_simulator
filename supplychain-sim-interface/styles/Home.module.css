@@ -8,7 +8,7 @@
 }
 
 .main {
-  padding: 5rem 0;
+  padding: 2.5rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -76,13 +76,12 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 800px;
   margin-top: 3rem;
 }
 
 .card {
   margin: 1rem;
-  flex-basis: 45%;
+  flex-basis: 100%;
   padding: 1.5rem;
   text-align: left;
   color: inherit;
@@ -96,7 +95,7 @@
 .card:focus,
 .card:active {
   color: #0070f3;
-  border-color: #0070f3;
+  border-color: #da7202;
 }
 
 .card h3 {
@@ -111,7 +110,27 @@
 }
 
 .logo {
-  height: 1em;
+  height: 1.65em;
+}
+
+.tooltip {
+  align-items: center;
+  background-color: #fcdd2c7c;
+  padding: 5px;
+  height: 25px;
+  width: 25px;
+  border: 0.5px solid #636363af;
+  border-radius: 8px;
+}
+
+.tooltip:hover,
+.tootlip:active {
+  cursor: pointer;
+  background-color: #80808071;
+}
+
+.tooltipImg {
+  margin-bottom: 2px;
 }
 
 @media (max-width: 600px) {
