@@ -1,11 +1,6 @@
 import React, { memo } from 'react'
 
 
-/**
- * @dev 
- * @todo
- * Finish this component and render event log data on client table
- */
 const CreateBeanTransactionForm = memo(({
   setBeanTxnName,
   setBeanTxnDescription,
@@ -62,7 +57,6 @@ const CreateBeanTransactionForm = memo(({
           />
           <div class='grid place-items-center'>
             <button
-              // type="submit"
               class="w-3/4 py-3 mt-6 rounded-3xl  font-normal shadow-lg hover:bg-gray-200 hover:shadow-none"
               onClick={ handleCreateBeanTransaction }
             >

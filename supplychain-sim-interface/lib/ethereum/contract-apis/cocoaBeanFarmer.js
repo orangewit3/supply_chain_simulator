@@ -59,7 +59,11 @@ export const createBeanTransaction = async (
     console.log(`\n Txn has been mined!`)
 
     console.log(`\n Listening for event to be emitted in an Ethereum block...`)
-    // Listening to event
+    /**
+     * @dev Listening to an event
+     * The following event subscription works and logs to console.
+     * Press F12 in the browser to view the logs.
+     */
     cocoaBeanFarmer.on("NewBeanTransaction", (
       txnId,
       txnName,
@@ -67,37 +71,13 @@ export const createBeanTransaction = async (
       txnQuantityToSend,
       event
     ) => {
-      console.log(`Here are the event values:`)
+      console.log(`Here are the event values \n`)
       console.log(`id: ${txnId}`)
       console.log(`name: ${txnName}`)
       console.log(`description: ${txnDescription}`)
       console.log(`quantity to send: ${txnQuantityToSend}`)
       console.log(`Event emitted at block number ${event.blockNumber}`)
     })
-
-    // console.log(
-    //   '\n Transaction receipt: ',
-    //   '\n \ \ blockHash: ',
-    //   receipt.blockHash,
-    //   '\n \ \ blockNumber: ',
-    //   receipt.blockNumber,
-    //   '\n \ \ confirmations: ',
-    //   receipt.confirmations,
-    //   '\n \ \ contractAddress: ',
-    //   receipt.contractAddress,
-    //   '\n \ \ cumulativeGasUsed: ',
-    //   receipt.cumulativeGasUsed,
-    //   '\n \ \ from: ',
-    //   receipt.from,
-    //   '\n \ \ gasUsed: ',
-    //   receipt.gasUsed,
-    //   '\n \ \ logs: ',
-    //   receipt.logs,
-    //   '\n \ \ transactionHash: ',
-    //   receipt.transactionHash,
-    //   '\n \ \ transactionIndex: ',
-    //   receipt.transactionIndex,
-    // )
 
     if (receipt.status === 0) return { error: receipt }
     return {
