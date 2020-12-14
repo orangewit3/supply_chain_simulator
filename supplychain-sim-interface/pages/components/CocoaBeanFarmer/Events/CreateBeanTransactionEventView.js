@@ -13,4 +13,4 @@ const CreateBeanTransactionEventView = memo(({
   )
 })
 
-export default CreateBeanTransactionForm
+export default CreateBeanTransactionEventView
