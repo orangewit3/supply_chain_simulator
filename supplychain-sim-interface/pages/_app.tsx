@@ -1,12 +1,13 @@
-import '../tailwind.output.css'
-import { useWeb3React, Web3ReactProvider } from '@web3-react/core'
-import { ethers } from 'ethers'
 import { AppProps } from 'next/app'
+import { ethers } from 'ethers'
+import { Web3Provider } from '@ethersproject/providers'
+import { useWeb3React, Web3ReactProvider } from '@web3-react/core'
+import '../tailwind.output.css'
 
 const POLLING_INTERVAL = 1200
 
-function getLibrary(provider: any): ethers.providers.Web3Provider {
-  const library = new ethers.providers.Web3Provider(provider)
+function getLibrary(provider: any): Web3Provider {
+  const library = new Web3Provider(provider)
   library.pollingInterval = POLLING_INTERVAL
 
   return library
