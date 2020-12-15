@@ -6,9 +6,9 @@ const BeanTransactionsView = memo(({
 }) => {
 
   return (
-    <div class="grid max-h-screen place-items-center my-10 p-10 rounded-3xl shadow-lg">
-      <div class='text-xl bg-gray-100 mx-5 p-2 shadow-lg rounded-md'>New Bean Transactions</div>
-      <div class='grid m-20 py-20'>
+    <div className="grid max-h-screen place-items-center my-10 p-10 rounded-3xl shadow-lg">
+      <div className='text-xl bg-gray-100 mx-5 p-2 shadow-lg rounded-md'>New Bean Transactions</div>
+      <div className='grid m-20 py-20'>
         {/* { showBeanEvent ? (
           <p>
             No transaction event data yet.
@@ -26,7 +26,7 @@ const BeanTransactionsView = memo(({
           )
         } */}
       </div>
-      <p>{ beanTransactionData }</p>
+      <p>{beanTransactionData}</p>
     </div>
   )
 })

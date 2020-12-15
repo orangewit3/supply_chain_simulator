@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
-
-import { unlockBrowser } from '../../../lib/ethereum/web3/connect'
 import Link from 'next/link'
+
 import { useActiveWeb3React } from '../../../hooks'
+import { unlockBrowser } from '../../../lib/ethereum/web3/connect'
 
 
 function useDetectOutsideClick(el, initialState) {

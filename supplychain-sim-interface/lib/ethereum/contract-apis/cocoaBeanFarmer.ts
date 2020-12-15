@@ -14,10 +14,10 @@ import getErrorResponse from '../web3/general'
  * @returns {Event} RETURNS EVENT IN AN ETHEREUM BLOCK
  */
 export const createBeanTransaction = async (
-  beanTxnName,
-  beanTxnDescription,
-  beanTxnQuantityToSend,
-  CocoaBeanFarmerContractAddress,
+  beanTxnName: string,
+  beanTxnDescription: string,
+  beanTxnQuantityToSend: number,
+  CocoaBeanFarmerContractAddress: string
 ) => {
   try {
     const { walletAddress, error, walletProvider } = await unlockBrowser({
@@ -28,7 +28,7 @@ export const createBeanTransaction = async (
 
     const signer = walletProvider.getSigner()
 
-    // const walletlessProvider = new ethers.providers.InfuraProvider(
+    // const signer = new ethers.providers.InfuraProvider(
     //   'goerli',
     //   process.env.INFURA_ENDPOINT_KEY
     // )
@@ -79,10 +79,10 @@ export const createBeanTransaction = async (
       console.log(`Event emitted at block number ${event.blockNumber}`)
     })
 
-    if (receipt.status === 0) return { error: receipt }
+    // if (receipt.status === 0) return { error: receipt }
     return {
-      receipt: receipt,
-      contractAddress: cocoaBeanFarmerAddress,
+      // receipt: receipt,
+      contractAddress: address,
       ownerWalletAddress: walletAddress
     }
   } catch (err) {
@@ -95,8 +95,8 @@ export const createBeanTransaction = async (
 
 
 export async function sendBeanTransaction(
-  transactionID,
-  recipient
+  transactionID: number,
+  recipient: string
 ) {
   try {
     const { walletAddress, error, walletProvider } = await unlockBrowser({
@@ -171,7 +171,7 @@ export async function sendBeanTransaction(
  * @return {Event} ?? maybe ??
  */
 export async function addPendingTransaction(
-  transactionID,
+  transactionID: number,
   action
 ) {
   try {
@@ -256,7 +256,7 @@ export async function getTransactionRejectedMsg(transactionID) {
       // This contract saved to environment variable after interacting with app
       process.env.COCOA_BEAN_FARMER_CONTRACT_ADDRESS,
       CocoaBeanFarmer.abi,
-      walletlessProvider
+      signer
     )
 
     const { address } = cocoaBeanFarmer
@@ -323,7 +323,7 @@ export async function isTransactionAccepted(transactionID) {
       // This contract saved to environment variable after interacting with app
       process.env.COCOA_BEAN_FARMER_CONTRACT_ADDRESS,
       CocoaBeanFarmer.abi,
-      walletlessProvider
+      signer
     )
 
     const { address } = cocoaBeanFarmer
@@ -566,9 +566,9 @@ export async function beanBalance(transactionID) {
      * @dev 
      * @todo NEED TO RETURN BEAN BALANCE
      */
-    if (receipt.status === 0) return { error: receipt }
+    // if (receipt.status === 0) return { error: receipt }
     return {
-      receipt: receipt,
+      // receipt: receipt,
       contractAddress: address,
       ownerWalletAddress: walletAddress
     }
@@ -602,9 +602,7 @@ export async function etherBalance() {
 
     console.log(`\n Attempting to get ether balance of CocoaBeanFarmer at ${address}`)
 
-    const etherBalance = await cocoaBeanFarmer.etherBalance(
-      transactionID
-    )
+    const etherBalance = await cocoaBeanFarmer.etherBalance()
 
     // const receipt = await etherBalance.deployTransaction.wait()
     // console.log(
@@ -636,9 +634,9 @@ export async function etherBalance() {
      * @dev 
      * @todo NEED TO RETURN ETHER BALANCE
      */
-    if (receipt.status === 0) return { error: receipt }
+    // if (receipt.status === 0) return { error: receipt }
     return {
-      receipt: receipt,
+      // receipt: receipt,
       contractAddress: address,
       ownerWalletAddress: walletAddress
     }
