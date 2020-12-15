@@ -15,10 +15,11 @@
 # production
 /build
 
-# event state management 
+# typescript version
 /state
 /hooks
 /constants
+/connectors
 
 # *.js to *.js file conversion (message @platocrat if you need this file!)
 /rename-js-files-to-ts.sh
