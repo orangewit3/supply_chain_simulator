@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import deployManufacturer from '../../../lib/ethereum/web3/deploy/deployManufacturer'
 import { DeployManufacturerForm } from './DeployManufacturerForm'
-import { useEtherPrice } from '../../hooks/useEtherPrice'
+import { useEtherPrice } from '../../../hooks/useEtherPrice'
 
 
 const DeployManufacturer = () => {

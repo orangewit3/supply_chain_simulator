@@ -16,7 +16,12 @@
 /build
 
 # event state management 
-/pages/state/
+/state
+/hooks
+/constants
+
+# *.js to *.js file conversion (message @platocrat if you need this file!)
+/rename-js-files-to-ts.sh
 
 # misc
 .DS_Store

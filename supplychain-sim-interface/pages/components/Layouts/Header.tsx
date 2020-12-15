@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 
 import { unlockBrowser } from '../../../lib/ethereum/web3/connect'
 import Link from 'next/link'
+import { useActiveWeb3React } from '../../../hooks'
 
 
 function useDetectOutsideClick(el, initialState) {
@@ -30,8 +31,12 @@ function useDetectOutsideClick(el, initialState) {
 
 
 export default function Header() {
+  const { account, chainId } = useActiveWeb3React()
   const dropdownRef = useRef(null)
   const [ isActive, setIsActive ] = useDetectOutsideClick(dropdownRef, false)
+
+  const userETHBalance = useETHBalances(account ? [ account ] : [])?.[ account ?? '' ]
+
 
   const onProfileClick = () => setIsActive(!isActive)
   const onMenuClick = () => setIsActive(!isActive)

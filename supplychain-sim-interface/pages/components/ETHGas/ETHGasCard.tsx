@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { useETHGasPrice } from '../../hooks/useETHGasPrice'
+import { useETHGasPrice } from '../../../hooks/useETHGasPrice'
 import ETHGasTable from './ETHGasTable'
 
 import ReactTooltip from 'react-tooltip'
 
 
 const ETHGasCard = () => {
-  const ethGasPriceObject = useETHGasPrice()
+  const ethGasPriceObject: any = useETHGasPrice()
   const fastETHGasPrice = ethGasPriceObject.fast / 10
   const fastestETHGasPrice = ethGasPriceObject.fastest / 10
   const safeLowETHGasPrice = ethGasPriceObject.safeLow / 10

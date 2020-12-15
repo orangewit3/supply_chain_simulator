@@ -7,7 +7,7 @@ const BeanTransactionsView = memo(({
 
   return (
     <div class="grid max-h-screen place-items-center my-10 p-10 rounded-3xl shadow-lg">
-      <div class='text-xl text-blue-400 bg-gray-100 mx-5 p-2 shadow-lg rounded-md'>New Bean Transactions</div>
+      <div class='text-xl bg-gray-100 mx-5 p-2 shadow-lg rounded-md'>New Bean Transactions</div>
       <div class='grid m-20 py-20'>
         {/* { showBeanEvent ? (
           <p>

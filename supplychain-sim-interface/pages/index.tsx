@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
+import { useWeb3React } from '@web3-react/core'
 
 /** @dev Layouts */
 import Header from './components/Layouts/Header'
@@ -167,6 +168,9 @@ EnhancedTableHead.propTypes = {
  * @param {props} beanTxnEvents OR allSupplyChainTxns 
  */
 function Home({ allSupplyChainTxns }) {
+  const { chainId, account } = useWeb3React()
+  console.log(chainId)
+  console.log(account)
   const [ order, setOrder ] = useState('asc')
   const [ orderBy, setOrderBy ] = useState('id')
   const [ open, setOpen ] = useState(false)
