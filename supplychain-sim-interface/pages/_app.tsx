@@ -1,4 +1,4 @@
-import 'tailwindcss/tailwind.css'
+import '../tailwind.output.css'
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core'
 import { ethers } from 'ethers'
 import { AppProps } from 'next/app'

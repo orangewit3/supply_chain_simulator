@@ -1,6 +1,6 @@
 import React from 'react'
 import BeanTransactionsView from './BeanTransactionsView'
-import { useDataFromEventLogs } from '../../../../hooks/useEventData'
+import { useDataFromEventLogs } from '../../../../state/cocoaBeanFarmer/hooks'
 import { useActiveWeb3React } from '../../../../hooks'
 import { useWeb3React } from '@web3-react/core'
 
@@ -12,7 +12,7 @@ const BeanTransactions = () => {
   const beanTxnDataFromEventLogs = useDataFromEventLogs()
 
   return (
-    <div class="grid max-h-screen place-items-center">
+    <div className="grid max-h-screen place-items-center">
       <BeanTransactionsView
         beanTransactionData={beanTxnDataFromEventLogs}
       />

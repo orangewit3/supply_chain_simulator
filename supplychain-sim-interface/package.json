@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "build:tailwind": "tailwindcss build ./tailwind.css -o ./tailwind.output.css",
+    "prestart": "npm run build:tailwind",
+    "prebuild": "npm run build:tailwind",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"

@@ -15,11 +15,15 @@
 # production
 /build
 
-# typescript version
+# typescript version -- hidden directories
 /state
 /hooks
 /constants
 /connectors
+
+# TailwindCSS
+tailwind*.css
+
 
 # *.js to *.js file conversion (message @platocrat if you need this file!)
 /rename-js-files-to-ts.sh
