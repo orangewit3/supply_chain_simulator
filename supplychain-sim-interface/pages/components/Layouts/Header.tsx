@@ -123,6 +123,14 @@ export default function Header() {
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
                 </div>
               </div>
+              <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
+                {account && userEthBalance ? (
+                  <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
+                    {userEthBalance?.toSignificant(4)} ETH
+                  </BalanceText>
+                ) : null}
+                <Web3Status />
+              </AccountElement>
               {/** --------------- @dev Unlock Browser Wallet --------------- */}
               <div className="ml-3 relative">
                 <button
