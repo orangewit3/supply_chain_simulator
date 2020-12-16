@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import { useWeb3React } from '@web3-react/core'
-
+import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core'
+import { Provider } from 'react-redux'
+import getLibrary from '../utils/getLibrary'
+import store from '../state'
 /** @dev Layouts */
 import Header from './components/Layouts/Header'
 import Footer from './components/Layouts/Footer'
-
 /** @dev Components */
 import DeploySupplyChainTransactions from './components/SupplyChainTransactions/DeploySupplyChainTransactions'
 import DeployCocoaBeanFarmer from './components/CocoaBeanFarmer/DeployCocoaBeanFarmer'
@@ -37,6 +38,8 @@ import {
 import styles from '../styles/Home.module.css'
 import { useActiveWeb3React } from '../hooks'
 
+
+const Web3ProviderNetwork = createWeb3ReactRoot("NETWORK")
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -207,53 +210,56 @@ function Home({ allSupplyChainTxns }) {
 
   return (
     <div>
-      <Header />
-      <div className={styles.container}>
-        <Head>
-          <title>Supply Chain Simulator</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <Web3ProviderNetwork getLibrary={getLibrary}>
+          <Provider store={store}>
+            <Header />
+            <div className={styles.container}>
+              <Head>
+                <title>Supply Chain Simulator</title>
+                <link rel="icon" href="/favicon.ico" />
+              </Head>
 
-        <main className={styles.main}>
+              <main className={styles.main}>
 
-          <h1 class='title-font mb-r text-4xl font-bold leading-15 tracking-tight'>Supply Chain Simulator</h1>
+                <h1 class='title-font mb-r text-4xl font-bold leading-15 tracking-tight'>Supply Chain Simulator</h1>
 
-          <ETHGas />
+                <ETHGas />
 
-          <DeploySupplyChainTransactions />
-          <DeployCocoaBeanFarmer />
-          <DeployManufacturer />
+                <DeploySupplyChainTransactions />
+                <DeployCocoaBeanFarmer />
+                <DeployManufacturer />
 
-          <CreateBeanTransaction />
-          <BeanTransactions />
+                <CreateBeanTransaction />
+                <BeanTransactions />
 
-          <div className={styles.grid}>
+                <div className={styles.grid}>
 
-            <div className={styles.card} >
-              <div>
-                <h2 className={styles.description}>
-                  Transaction Details
+                  <div className={styles.card} >
+                    <div>
+                      <h2 className={styles.description}>
+                        Transaction Details
               </h2>
-                <TableContainer component={Paper}>
-                  <Table
-                    className={classes.table}
-                    aria-labelledby='tableTitle'
-                    aria-label='enhanced table'
-                  >
-                    <EnhancedTableHead
-                      classes={classes}
-                      order={order}
-                      orderBy={orderBy}
-                      onRequestSort={handleRequestSort}
-                    />
-                    <TableBody>
-                      {stableSort(rows, getComparator(order, orderBy))
-                        .map((row, index) => {
-                          const labelId = `enhanced-table-checkbox-${index}`
+                      <TableContainer component={Paper}>
+                        <Table
+                          className={classes.table}
+                          aria-labelledby='tableTitle'
+                          aria-label='enhanced table'
+                        >
+                          <EnhancedTableHead
+                            classes={classes}
+                            order={order}
+                            orderBy={orderBy}
+                            onRequestSort={handleRequestSort}
+                          />
+                          <TableBody>
+                            {stableSort(rows, getComparator(order, orderBy))
+                              .map((row, index) => {
+                                const labelId = `enhanced-table-checkbox-${index}`
 
-                          return (
-                            <TableRow>
-                              {/* <TableCell component="th" scope="row" padding="none">
+                                return (
+                                  <TableRow>
+                                    {/* <TableCell component="th" scope="row" padding="none">
                               <ClickAwayListener onClickAway={ handleTooltipClose }>
                                 <Tooltip
                                   arrow
@@ -283,49 +289,52 @@ function Home({ allSupplyChainTxns }) {
                                 </Tooltip>
                               </ClickAwayListener>
                             </TableCell> */}
-                              <TableCell component="th" id={labelId} scope="row" size='small'>
-                                {row.id}
-                              </TableCell>
-                              <TableCell align="right" size='small'>{row.description}</TableCell>
-                              <TableCell align="right" size='small'>{row.amount}</TableCell>
-                              <TableCell align="right" size='small'>{row.isCredit}</TableCell>
-                              <TableCell
-                                align="right"
-                                size='small'
-                              // style={ {
-                              //   whiteSpace: 'nowrap',
-                              //   textOverflow: 'ellipsis',
-                              //   overflow: 'hidden',
-                              //   maxWidth: '190px'
-                              // } }
-                              >
-                                {row.date}
-                              </TableCell>
-                              <TableCell
-                                align="right"
-                                size='small'
-                                style={{
-                                  whiteSpace: 'nowrap',
-                                  textOverflow: 'ellipsis',
-                                  overflow: 'hidden',
-                                  maxWidth: '250px',
-                                }}
-                              >
-                                <Link href={row.imageUrl} target='_blank'>{row.imageUrl}</Link>
-                              </TableCell>
-                            </TableRow>
-                          )
-                        })}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </div>
-            </div>
-          </div>
-        </main>
+                                    <TableCell component="th" id={labelId} scope="row" size='small'>
+                                      {row.id}
+                                    </TableCell>
+                                    <TableCell align="right" size='small'>{row.description}</TableCell>
+                                    <TableCell align="right" size='small'>{row.amount}</TableCell>
+                                    <TableCell align="right" size='small'>{row.isCredit}</TableCell>
+                                    <TableCell
+                                      align="right"
+                                      size='small'
+                                    // style={ {
+                                    //   whiteSpace: 'nowrap',
+                                    //   textOverflow: 'ellipsis',
+                                    //   overflow: 'hidden',
+                                    //   maxWidth: '190px'
+                                    // } }
+                                    >
+                                      {row.date}
+                                    </TableCell>
+                                    <TableCell
+                                      align="right"
+                                      size='small'
+                                      style={{
+                                        whiteSpace: 'nowrap',
+                                        textOverflow: 'ellipsis',
+                                        overflow: 'hidden',
+                                        maxWidth: '250px',
+                                      }}
+                                    >
+                                      <Link href={row.imageUrl} target='_blank'>{row.imageUrl}</Link>
+                                    </TableCell>
+                                  </TableRow>
+                                )
+                              })}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    </div>
+                  </div>
+                </div>
+              </main>
 
-        <Footer />
-      </div >
+              <Footer />
+            </div >
+          </Provider>
+        </Web3ProviderNetwork>
+      </Web3ReactProvider>
     </div>
   )
 }
@@ -350,7 +359,7 @@ Home.getInitialProps = (ctx) => {
 
   const allSupplyChainTxns = memeData.transactions
 
-  // return { beanTxnEvents }
+  // return {beanTxnEvents}
   return { allSupplyChainTxns }
 }
 
