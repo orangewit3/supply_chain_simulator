@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 
+import { useTranslation } from 'react-i18next'
+
 import { useActiveWeb3React } from '../../../hooks'
 import { unlockBrowser } from '../../../lib/ethereum/web3/connect'
 
@@ -32,6 +34,12 @@ function useDetectOutsideClick(el, initialState) {
 
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()
+  const { t } = useTranslation()
+
+  const useEthBalance = useETHBalances(
+    account ? [account] : []
+  )?.[account ?? '']
+
   const dropdownRef = useRef(null)
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false)
 
