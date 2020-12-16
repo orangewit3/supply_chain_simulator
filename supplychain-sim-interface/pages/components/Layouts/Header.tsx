@@ -1,10 +1,37 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+// import { useTranslation } from 'react-i18next'
 
-import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
 
 import { useActiveWeb3React } from '../../../hooks'
+import { useETHBalances } from '../../../state/wallet/hooks'
 import { unlockBrowser } from '../../../lib/ethereum/web3/connect'
+// import Web3Status from '../Web3Status'
+
+
+const AccountElement = styled.div<{ active: boolean }>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: ${({ theme, active }) => (!active ? theme.bg1 : theme.bg3)};
+  border-radius: 12px;
+  white-space: nowrap;
+  width: 100%;
+  cursor: pointer;
+  :focus {
+    border: 1px solid blue;
+  }
+  /* :hover {
+    background-color: ${({ theme, active }) => (!active ? theme.bg2 : theme.bg4)};
+  } */
+`
+
+const BalanceText = styled(Text)`
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+    display: none;
+  `};
+`
 
 
 function useDetectOutsideClick(el, initialState) {
@@ -34,9 +61,9 @@ function useDetectOutsideClick(el, initialState) {
 
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
 
-  const useEthBalance = useETHBalances(
+  const userEthBalance = useETHBalances(
     account ? [account] : []
   )?.[account ?? '']
 
@@ -129,7 +156,7 @@ export default function Header() {
                     {userEthBalance?.toSignificant(4)} ETH
                   </BalanceText>
                 ) : null}
-                <Web3Status />
+                {/* <Web3Status /> */}
               </AccountElement>
               {/** --------------- @dev Unlock Browser Wallet --------------- */}
               <div className="ml-3 relative">

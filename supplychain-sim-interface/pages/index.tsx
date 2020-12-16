@@ -10,7 +10,7 @@ import Footer from './components/Layouts/Footer'
 import DeploySupplyChainTransactions from './components/SupplyChainTransactions/DeploySupplyChainTransactions'
 import DeployCocoaBeanFarmer from './components/CocoaBeanFarmer/DeployCocoaBeanFarmer'
 import DeployManufacturer from './components/Manufacturer/DeployManufacturer'
-import ETHGasCard from './components/ETHGas/ETHGasCard'
+import ETHGasCard from './components/ETHGas'
 import CreateBeanTransaction from './components/CocoaBeanFarmer/CreateBeanTransaction'
 import BeanTransactions from './components/CocoaBeanFarmer/Events/BeanTransactions'
 
