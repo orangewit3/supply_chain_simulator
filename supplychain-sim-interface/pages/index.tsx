@@ -10,7 +10,7 @@ import Footer from './components/Layouts/Footer'
 import DeploySupplyChainTransactions from './components/SupplyChainTransactions/DeploySupplyChainTransactions'
 import DeployCocoaBeanFarmer from './components/CocoaBeanFarmer/DeployCocoaBeanFarmer'
 import DeployManufacturer from './components/Manufacturer/DeployManufacturer'
-import ETHGasCard from './components/ETHGas'
+import ETHGas from './components/ETHGas'
 import CreateBeanTransaction from './components/CocoaBeanFarmer/CreateBeanTransaction'
 import BeanTransactions from './components/CocoaBeanFarmer/Events/BeanTransactions'
 
@@ -218,7 +218,7 @@ function Home({ allSupplyChainTxns }) {
 
           <h1 class='title-font mb-r text-4xl font-bold leading-15 tracking-tight'>Supply Chain Simulator</h1>
 
-          <ETHGasCard />
+          <ETHGas />
 
           <DeploySupplyChainTransactions />
           <DeployCocoaBeanFarmer />

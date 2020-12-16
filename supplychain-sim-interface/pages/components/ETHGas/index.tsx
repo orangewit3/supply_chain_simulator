@@ -5,7 +5,7 @@ import ETHGasTable from './ETHGasTable'
 import ReactTooltip from 'react-tooltip'
 
 
-const ETHGas = () => {
+export default function ETHGas() {
   const ethGasPriceObject: any = useETHGasPrice()
   const fastETHGasPrice = ethGasPriceObject.fast / 10
   const fastestETHGasPrice = ethGasPriceObject.fastest / 10

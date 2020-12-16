@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { Text } from 'rebass'
 // import { useTranslation } from 'react-i18next'
 
 import styled from 'styled-components'
