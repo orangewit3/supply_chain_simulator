@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-
+import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core'
+import { Provider } from 'react-redux'
+import getLibrary from '../utils/getLibrary'
+import store from '../state'
 /** @dev Layouts */
 import Header from './components/Layouts/Header'
 import Footer from './components/Layouts/Footer'
-
 /** @dev Components */
-import ETHGasCard from './components/ETHGas/ETHGasCard'
-import CreateBeanTransaction from './components/CocoaBeanFarmer/CreateBeanTransaction'
-import showBeanEvent from './components/CocoaBeanFarmer/CreateBeanTransaction'
 import DeploySupplyChainTransactions from './components/SupplyChainTransactions/DeploySupplyChainTransactions'
 import DeployCocoaBeanFarmer from './components/CocoaBeanFarmer/DeployCocoaBeanFarmer'
 import DeployManufacturer from './components/Manufacturer/DeployManufacturer'
-import Manufacturer from './components/Manufacturer/DeployManufacturer'
+import ETHGas from './components/ETHGas'
+import CreateBeanTransaction from './components/CocoaBeanFarmer/CreateBeanTransaction'
+import BeanTransactions from './components/CocoaBeanFarmer/Events/BeanTransactions'
 
 /** @dev Sample data  */
 import memeData from '../lib/meme-data.json'
@@ -35,7 +36,10 @@ import {
   Link,
 } from '@material-ui/core'
 import styles from '../styles/Home.module.css'
+import { useActiveWeb3React } from '../hooks'
 
+
+const Web3ProviderNetwork = createWeb3ReactRoot("NETWORK")
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,10 +90,10 @@ function createData(id, description, amount, isCredit, date, imageUrl) {
  * functions for sorting table columns.
  */
 function descendingComparator(a, b, orderBy) {
-  if (b[ orderBy ] < a[ orderBy ]) {
+  if (b[orderBy] < a[orderBy]) {
     return -1
   }
-  if (b[ orderBy ] > a[ orderBy ]) {
+  if (b[orderBy] > a[orderBy]) {
     return 1
   }
   return 0
@@ -102,13 +106,13 @@ function getComparator(order, orderBy) {
 }
 
 function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [ el, index ])
+  const stabilizedThis = array.map((el, index) => [el, index])
   stabilizedThis.sort((a, b) => {
-    const order = comparator(a[ 0 ], b[ 0 ])
+    const order = comparator(a[0], b[0])
     if (order !== 0) return order
-    return a[ 1 ] - b[ 1 ]
+    return a[1] - b[1]
   })
-  return stabilizedThis.map((el) => el[ 0 ])
+  return stabilizedThis.map((el) => el[0])
 }
 
 function EnhancedTableHead(props) {
@@ -124,27 +128,27 @@ function EnhancedTableHead(props) {
          * @dev and @todo 
          * Currently, the only header where sorting is useless is `imageUrl`
          */}
-        { headCells.map((headCell) => (
+        {headCells.map((headCell) => (
           <TableCell
-            key={ headCell.id }
-            align={ headCell.numeric ? 'right' : 'left' }
-            padding={ headCell.disablePadding ? 'none' : 'default' }
-            sortDirection={ orderBy === headCell.id ? order : false }
+            key={headCell.id}
+            align={headCell.numeric ? 'right' : 'left'}
+            padding={headCell.disablePadding ? 'none' : 'default'}
+            sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
-              active={ orderBy === headCell.id }
-              direction={ orderBy === headCell.id ? order : 'asc' }
-              onClick={ createSortHandler(headCell.id) }
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
             >
-              { headCell.label }
-              { orderBy === headCell.id ? (
-                <span className={ classes.visuallyHidden }>
-                  {order === 'desc' ? '' : '' }
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <span className={classes.visuallyHidden}>
+                  {order === 'desc' ? '' : ''}
                 </span>
-              ) : null }
+              ) : null}
             </TableSortLabel>
           </TableCell>
-        )) }
+        ))}
       </TableRow>
     </TableHead>
   )
@@ -153,7 +157,7 @@ function EnhancedTableHead(props) {
 EnhancedTableHead.propTypes = {
   classes: PropTypes.object.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.oneOf([ 'asc', 'desc' ]).isRequired,
+  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
 }
 
@@ -168,9 +172,11 @@ EnhancedTableHead.propTypes = {
  * @param {props} beanTxnEvents OR allSupplyChainTxns 
  */
 function Home({ allSupplyChainTxns }) {
-  const [ order, setOrder ] = useState('asc')
-  const [ orderBy, setOrderBy ] = useState('id')
-  const [ open, setOpen ] = useState(false)
+  // const { chainId, account } = useActiveWeb3React()
+
+  const [order, setOrder] = useState('asc')
+  const [orderBy, setOrderBy] = useState('id')
+  const [open, setOpen] = useState(false)
   // CSS for Material-UI
   const classes = useStyles()
   // To make txn data easier to manage in table format
@@ -204,70 +210,56 @@ function Home({ allSupplyChainTxns }) {
 
   return (
     <div>
-      <Header />
-      <div className={ styles.container }>
-        <Head>
-          <title>Supply Chain Simulator</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <Web3ProviderNetwork getLibrary={getLibrary}>
+          <Provider store={store}>
+            <Header />
+            <div className={styles.container}>
+              <Head>
+                <title>Supply Chain Simulator</title>
+                <link rel="icon" href="/favicon.ico" />
+              </Head>
 
-        <main className={ styles.main }>
+              <main className={styles.main}>
 
-          <h1 class='title-font mb-r text-4xl font-bold leading-15 tracking-tight'>Supply Chain Simulator</h1>
+                <h1 class='title-font mb-r text-4xl font-bold leading-15 tracking-tight'>Supply Chain Simulator</h1>
 
-          <ETHGasCard />
-          <DeploySupplyChainTransactions />
-          <DeployCocoaBeanFarmer />
-          <DeployManufacturer />
+                <ETHGas />
 
-          <CreateBeanTransaction />
+                <DeploySupplyChainTransactions />
+                <DeployCocoaBeanFarmer />
+                <DeployManufacturer />
 
-          <div class='grid m-20 py-20'>
-            { showBeanEvent ? (
-              <p>
-                No transaction event data yet.
-              </p>
-            ) : (
-                <div>
-                  {
-                    console.log(
-                      contract.events.BeanTransaction({
-                        fromBlock: 0
-                      }).on('bean transaction data', event => console.log(event))
-                    )
-                  }
-                </div>
-              )
-            }
-          </div>
+                <CreateBeanTransaction />
+                <BeanTransactions />
 
-          <div className={ styles.grid }>
+                <div className={styles.grid}>
 
-            <div className={ styles.card } >
-              <div>
-                <h2 className={ styles.description }>
-                  Transaction Details
+                  <div className={styles.card} >
+                    <div>
+                      <h2 className={styles.description}>
+                        Transaction Details
               </h2>
-                <TableContainer component={ Paper }>
-                  <Table
-                    className={ classes.table }
-                    aria-labelledby='tableTitle'
-                    aria-label='enhanced table'
-                  >
-                    <EnhancedTableHead
-                      classes={ classes }
-                      order={ order }
-                      orderBy={ orderBy }
-                      onRequestSort={ handleRequestSort }
-                    />
-                    <TableBody>
-                      { stableSort(rows, getComparator(order, orderBy))
-                        .map((row, index) => {
-                          const labelId = `enhanced-table-checkbox-${index}`
+                      <TableContainer component={Paper}>
+                        <Table
+                          className={classes.table}
+                          aria-labelledby='tableTitle'
+                          aria-label='enhanced table'
+                        >
+                          <EnhancedTableHead
+                            classes={classes}
+                            order={order}
+                            orderBy={orderBy}
+                            onRequestSort={handleRequestSort}
+                          />
+                          <TableBody>
+                            {stableSort(rows, getComparator(order, orderBy))
+                              .map((row, index) => {
+                                const labelId = `enhanced-table-checkbox-${index}`
 
-                          return (
-                            <TableRow>
-                              {/* <TableCell component="th" scope="row" padding="none">
+                                return (
+                                  <TableRow>
+                                    {/* <TableCell component="th" scope="row" padding="none">
                               <ClickAwayListener onClickAway={ handleTooltipClose }>
                                 <Tooltip
                                   arrow
@@ -297,49 +289,52 @@ function Home({ allSupplyChainTxns }) {
                                 </Tooltip>
                               </ClickAwayListener>
                             </TableCell> */}
-                              <TableCell component="th" id={ labelId } scope="row" size='small'>
-                                { row.id }
-                              </TableCell>
-                              <TableCell align="right" size='small'>{ row.description }</TableCell>
-                              <TableCell align="right" size='small'>{ row.amount }</TableCell>
-                              <TableCell align="right" size='small'>{ row.isCredit }</TableCell>
-                              <TableCell
-                                align="right"
-                                size='small'
-                              // style={ {
-                              //   whiteSpace: 'nowrap',
-                              //   textOverflow: 'ellipsis',
-                              //   overflow: 'hidden',
-                              //   maxWidth: '190px'
-                              // } }
-                              >
-                                { row.date }
-                              </TableCell>
-                              <TableCell
-                                align="right"
-                                size='small'
-                                style={ {
-                                  whiteSpace: 'nowrap',
-                                  textOverflow: 'ellipsis',
-                                  overflow: 'hidden',
-                                  maxWidth: '250px',
-                                } }
-                              >
-                                <Link href={ row.imageUrl } target='_blank'>{ row.imageUrl }</Link>
-                              </TableCell>
-                            </TableRow>
-                          )
-                        }) }
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </div>
-            </div>
-          </div>
-        </main>
+                                    <TableCell component="th" id={labelId} scope="row" size='small'>
+                                      {row.id}
+                                    </TableCell>
+                                    <TableCell align="right" size='small'>{row.description}</TableCell>
+                                    <TableCell align="right" size='small'>{row.amount}</TableCell>
+                                    <TableCell align="right" size='small'>{row.isCredit}</TableCell>
+                                    <TableCell
+                                      align="right"
+                                      size='small'
+                                    // style={ {
+                                    //   whiteSpace: 'nowrap',
+                                    //   textOverflow: 'ellipsis',
+                                    //   overflow: 'hidden',
+                                    //   maxWidth: '190px'
+                                    // } }
+                                    >
+                                      {row.date}
+                                    </TableCell>
+                                    <TableCell
+                                      align="right"
+                                      size='small'
+                                      style={{
+                                        whiteSpace: 'nowrap',
+                                        textOverflow: 'ellipsis',
+                                        overflow: 'hidden',
+                                        maxWidth: '250px',
+                                      }}
+                                    >
+                                      <Link href={row.imageUrl} target='_blank'>{row.imageUrl}</Link>
+                                    </TableCell>
+                                  </TableRow>
+                                )
+                              })}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    </div>
+                  </div>
+                </div>
+              </main>
 
-        <Footer />
-      </div >
+              <Footer />
+            </div >
+          </Provider>
+        </Web3ProviderNetwork>
+      </Web3ReactProvider>
     </div>
   )
 }
@@ -364,7 +359,7 @@ Home.getInitialProps = (ctx) => {
 
   const allSupplyChainTxns = memeData.transactions
 
-  // return { beanTxnEvents }
+  // return {beanTxnEvents}
   return { allSupplyChainTxns }
 }
 

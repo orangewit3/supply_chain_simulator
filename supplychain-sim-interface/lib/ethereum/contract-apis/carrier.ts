@@ -1,5 +1,5 @@
 import { ethers, Contract } from 'ethers'
-import Carrier from '../../../build/contracts/Carrier.json'
+import Carrier from '../../../../build/contracts/Carrier.json'
 
 /**
  * @todo Complete the contract functions before completing this interface.

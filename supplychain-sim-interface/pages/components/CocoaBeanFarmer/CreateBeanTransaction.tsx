@@ -4,27 +4,27 @@ import { createBeanTransaction } from '../../../lib/ethereum/contract-apis/cocoa
 
 
 const CreateBeanTransaction = () => {
-  const [ beanTxnName, setBeanTxnName ] = useState(null)
-  const [ beanTxnDescription, setBeanTxnDescription ] = useState(null)
-  const [ beanTxnQuantityToSend, setBeanTxnQuantityToSend ] = useState(0)
-  const [ cocoaBeanFarmerContractAddress, setCocoaBeanFarmerContractAddress] = useState(null)
+  const [beanTxnName, setBeanTxnName] = useState(null)
+  const [beanTxnDescription, setBeanTxnDescription] = useState(null)
+  const [beanTxnQuantityToSend, setBeanTxnQuantityToSend] = useState(0)
+  const [cocoaBeanFarmerContractAddress, setCocoaBeanFarmerContractAddress] = useState(null)
 
 
   const useSetBeanTxnNameCallback = useCallback((e) => {
     setBeanTxnName(e.currentTarget.value)
-  }, [ setBeanTxnName ])
+  }, [setBeanTxnName])
 
   const useSetBeanTxnDescriptionCallback = useCallback((e) => {
     setBeanTxnDescription(e.currentTarget.value)
-  }, [ setBeanTxnDescription ])
+  }, [setBeanTxnDescription])
 
   const useSetBeanTxnQuantityToSendCallback = useCallback((e) => {
     setBeanTxnQuantityToSend(e.currentTarget.value)
-  }, [ setBeanTxnQuantityToSend ])
-  
+  }, [setBeanTxnQuantityToSend])
+
   const useSetCocoaBeanFarmerContractAddressCallback = useCallback((e) => {
     setCocoaBeanFarmerContractAddress(e.currentTarget.value)
-  }, [ setCocoaBeanFarmerContractAddress ])
+  }, [setCocoaBeanFarmerContractAddress])
 
   const useHandleCreateBeanTransactionCallback = useCallback(async (e) => {
     e.preventDefault()
@@ -43,13 +43,13 @@ const CreateBeanTransaction = () => {
 
 
   return (
-    <div class="grid max-h-screen place-items-center">
+    <div className="grid max-h-screen place-items-center">
       <CreateBeanTransactionForm
-        setBeanTxnName={ useSetBeanTxnNameCallback }
-        setBeanTxnDescription={ useSetBeanTxnDescriptionCallback }
-        setBeanTxnQuantityToSend={ useSetBeanTxnQuantityToSendCallback }
-        setCocoaBeanFarmerContractAddress={ useSetCocoaBeanFarmerContractAddressCallback }
-        handleCreateBeanTransaction={ useHandleCreateBeanTransactionCallback }
+        setBeanTxnName={useSetBeanTxnNameCallback}
+        setBeanTxnDescription={useSetBeanTxnDescriptionCallback}
+        setBeanTxnQuantityToSend={useSetBeanTxnQuantityToSendCallback}
+        setCocoaBeanFarmerContractAddress={useSetCocoaBeanFarmerContractAddressCallback}
+        handleCreateBeanTransaction={useHandleCreateBeanTransactionCallback}
       />
     </div>
   )
